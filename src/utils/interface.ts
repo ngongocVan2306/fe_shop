@@ -124,3 +124,13 @@ export interface ICart {
     count: number;
     productData: IProduct;
 }
+
+export type TInput = "email" | "password" | "phone" | "text";
+
+export interface IMenuRegister {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    rePassword: string;
+}
