@@ -1,7 +1,7 @@
 import { TInput } from "@/utils/interface";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-export default function InputComponent({
+const InputComponent = ({
     name,
     type,
     register,
@@ -14,7 +14,7 @@ export default function InputComponent({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rules?: any;
     errors?: FieldErrors<FieldValues>;
-}) {
+}) => {
     return (
         <div className="w-full">
             <input
@@ -29,4 +29,6 @@ export default function InputComponent({
             )}
         </div>
     );
-}
+};
+
+export default InputComponent;

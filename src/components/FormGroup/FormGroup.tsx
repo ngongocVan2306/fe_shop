@@ -3,7 +3,7 @@ import InputComponent from "../InputComponent/InputComponent";
 import LabelComponent from "../LabelComponent/LabelComponent";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-export default function FormGroup({
+const FormGroup = ({
     label,
     name,
     type,
@@ -18,7 +18,7 @@ export default function FormGroup({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rules?: any;
     errors?: FieldErrors<FieldValues>;
-}) {
+}) => {
     return (
         <div className="w-full mt-[15px]">
             <LabelComponent value={label} />
@@ -31,4 +31,6 @@ export default function FormGroup({
             />
         </div>
     );
-}
+};
+
+export default FormGroup;

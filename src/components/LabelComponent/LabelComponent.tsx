@@ -1,5 +1,7 @@
 "use client";
 
-export default function LabelComponent({ value }: { value: string }) {
+const LabelComponent = ({ value }: { value: string }) => {
     return <label>{value}</label>;
-}
+};
+
+export default LabelComponent;

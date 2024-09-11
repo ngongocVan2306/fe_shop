@@ -1,7 +1,6 @@
 "use client";
 
 import { routes } from "@/utils/menuRouters";
-// import Link from "next/link";
 import { useEffect, useRef } from "react";
 import thumbnail from "../../../../../public/hero-bg.jpg";
 import { IUser } from "@/utils/interface";
@@ -14,13 +13,11 @@ import { FieldValues, useForm } from "react-hook-form";
 import FormGroup from "@/components/FormGroup/FormGroup";
 import LinkComponent from "@/components/LinkComponent/LinkComponent";
 import { menuRegister } from "@/utils/menuRegister";
+import { toastStatus } from "@/constants";
+import Image from "next/image";
+import iconHome from "../../../../../assets/icons/iconHome.svg";
 
-export default function PageRegister({
-    params: { slug },
-}: {
-    params: { slug: string };
-}) {
-    const isLogin = useAppSelector((state: RootState) => state.auth.isLogin);
+const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
     const dispatch = useAppDispatch();
 
     const router = useRouter();
@@ -29,22 +26,14 @@ export default function PageRegister({
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.code === "Enter") {
-            console.log("run");
             ref.current?.click();
         }
     };
 
-    useEffect(() => {
-        if (isLogin) {
-            router.push(routes.home.url);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const {
         register,
         handleSubmit,
-        setValue,
+        reset,
         getValues,
         formState: { errors },
     } = useForm();
@@ -56,20 +45,19 @@ export default function PageRegister({
             };
             const res = await handleRegisterAction(dataBuider);
             Swal.fire({
-                icon: res.code === 200 ? "success" : "warning",
+                icon:
+                    res.code === 200
+                        ? toastStatus.SUCCESS
+                        : toastStatus.WARNING,
                 title: res.msg,
             });
             if (res.code === 200) {
-                setValue(menuRegister.email, "");
-                setValue(menuRegister.firstName, "");
-                setValue(menuRegister.lastName, "");
-                setValue(menuRegister.password, "");
-                setValue(menuRegister.rePassword, "");
+                reset();
             }
         } catch (err) {
             console.log(err);
             Swal.fire({
-                icon: "error",
+                icon: toastStatus.ERROR,
                 title: "Error",
             });
         }
@@ -111,20 +99,7 @@ export default function PageRegister({
                     router.push(routes.home.url);
                 }}
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5  text-[#fff] mr-[10px]"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                    />
-                </svg>
+                <Image width={30} height={30} src={iconHome} alt="home" />
 
                 <p className="text-[#fff]">Home</p>
             </div>
@@ -228,4 +203,6 @@ export default function PageRegister({
             </div>
         </div>
     );
-}
+};
+
+export default PageRegister;
