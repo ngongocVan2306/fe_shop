@@ -48,10 +48,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                     ? await handleRegisterAction(dataBuider)
                     : await handleLoginAction(dataBuider);
             Swal.fire({
-                icon:
-                    res.code === 200
-                        ? toastStatus.SUCCESS
-                        : toastStatus.WARNING,
+                icon: res.code === toastStatus.SUCCESS ? "success" : "warning",
                 title: res.msg,
             });
 
@@ -65,7 +62,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
         } catch (err) {
             console.log(err);
             Swal.fire({
-                icon: toastStatus.ERROR,
+                icon: "error",
                 title: "Error",
             });
         }
