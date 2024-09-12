@@ -7,7 +7,7 @@ import { api } from "@/constants";
 export const handleRegisterAction = async (
     dataBuider: Partial<IUser>
 ): Promise<IRes<IResLogin>> => {
-    return axios.post(api.REGISTER, dataBuider, {
+    return await axios.post(api.REGISTER, dataBuider, {
         withCredentials: true,
     });
 };
@@ -15,9 +15,9 @@ export const handleRegisterAction = async (
 export const handleLoginAction = async (
     dataBuider: Partial<IUser>
 ): Promise<IRes<IResLogin>> => {
-    return axios.post(api.LOGIN, dataBuider, { withCredentials: true });
+    return await axios.post(api.LOGIN, dataBuider, { withCredentials: true });
 };
 
 export const handleLogoutAction = async (): Promise<IRes<null>> => {
-    return axios.post(api.LOGOUT);
+    return await axios.post(api.LOGOUT);
 };

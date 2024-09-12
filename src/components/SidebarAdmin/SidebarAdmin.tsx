@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { routes } from "@/utils/menuRouters";
 import { defaultPagination } from "@/utils/defaultPagination";
 import Link from "next/link";
+import { menuSidebarAdmin } from "@/utils/menuSidebarAdmin";
 
 export default function SidebarAdmin({
     handleToggleSibar,
@@ -29,33 +30,24 @@ export default function SidebarAdmin({
             </div>
 
             <ul className=" w-[100%]">
-                <Link href={routes.manageCate?.url}>
-                    <li
-                        className={`w-[100%] p-[10px] text-center hover:cursor-pointer hover:bg-[#00FFFF] ${
-                            pathName.includes(routes.cate.url)
-                                ? " bg-[#00FFFF] text-[#fff]"
-                                : ""
-                        }`}
-                        onClick={() => handleToggleSibar()}
-                    >
-                        Danh Mục{" "}
-                    </li>
-                </Link>
-
-                <Link
-                    href={routes.manageProduct?.url + `/0${defaultPagination}`}
-                >
-                    <li
-                        className={`w-[100%] p-[10px] text-center hover:cursor-pointer hover:bg-[#00FFFF] ${
-                            pathName.includes(routes.product.url)
-                                ? "bg-[#00FFFF] text-[#fff]"
-                                : ""
-                        }`}
-                        onClick={() => handleToggleSibar()}
-                    >
-                        Sản phẩm
-                    </li>
-                </Link>
+                {menuSidebarAdmin &&
+                    menuSidebarAdmin.length > 0 &&
+                    menuSidebarAdmin.map((item, index) => {
+                        return (
+                            <Link href={item.url} key={index}>
+                                <li
+                                    className={`w-[100%] p-[10px] text-center hover:cursor-pointer hover:bg-[#00FFFF] ${
+                                        pathName.includes(item.parent)
+                                            ? " bg-[#00FFFF] text-[#fff]"
+                                            : ""
+                                    }`}
+                                    onClick={() => handleToggleSibar()}
+                                >
+                                    {item.label}
+                                </li>
+                            </Link>
+                        );
+                    })}
             </ul>
         </div>
     );

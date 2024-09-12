@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import bunbu from "../../public/bunbu.png";
 import { routes } from "@/utils/menuRouters";
-// import { defaultPagination } from "@/utils/defaultPagination";
 
 export default function Home() {
     return (

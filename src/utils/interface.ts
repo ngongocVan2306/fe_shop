@@ -145,3 +145,9 @@ export interface IStatusToast {
     QUESTION: SweetAlertIcon;
     INFO: SweetAlertIcon;
 }
+
+export interface IMenuSidebar {
+    label: string;
+    url: string;
+    parent: string;
+}

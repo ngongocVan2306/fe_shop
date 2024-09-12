@@ -24,14 +24,19 @@ const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
                         onClick={() => {
                             setIsView(!isView);
                         }}
-                    ></div>
-
-                    <Image width={100} height={100} src={iconMenu} alt="menu" />
+                    >
+                        <Image
+                            width={100}
+                            height={100}
+                            src={iconMenu}
+                            alt="menu"
+                        />
+                    </div>
 
                     <div
                         className={`sm:w-[15%] w-[50%] h-[100%] fixed top-0 bg-[#fff] overflow-hidden ${
                             isView ? "" : "hidden"
-                        } sm:block z-[100]`}
+                        } sm:block z-[100] shadow`}
                     >
                         <SidebarAdmin handleToggleSibar={handleToggleSibar} />
                     </div>

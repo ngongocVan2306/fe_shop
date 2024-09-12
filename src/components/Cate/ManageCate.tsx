@@ -5,11 +5,11 @@ import { mesError, resStatus, toastStatus } from "@/constants";
 import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
 import Trash from "../icons/Trash";
-import { useRouter } from "next/navigation";
-import { routes } from "@/utils/menuRouters";
+import { useState } from "react";
 
 export default function ManageCate({ data }: { data: ICate[] }) {
-    const router = useRouter();
+    const [cates, setCates] = useState<ICate[]>(data);
+
     const handleDeleteCate = (data: ICate) => {
         Swal.fire({
             icon: toastStatus.QUESTION,
@@ -30,7 +30,7 @@ export default function ManageCate({ data }: { data: ICate[] }) {
                     });
 
                     if (res.code === resStatus.SUCCESS) {
-                        router.refresh();
+                        setCates(cates.filter((item) => item.id !== data.id));
                     }
                 } catch (err) {
                     console.log(err);
@@ -48,9 +48,9 @@ export default function ManageCate({ data }: { data: ICate[] }) {
                 Quản lí danh mục
             </h4>
             <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 w-full">
-                {data &&
-                    data.length > 0 &&
-                    data.map((item: ICate) => {
+                {cates &&
+                    cates.length > 0 &&
+                    cates.map((item: ICate) => {
                         return (
                             <div
                                 className="border-solid border-[1px] border-[#ccc] rounded-[10px] p-[20px] shadow flex justify-between"

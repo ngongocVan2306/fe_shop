@@ -136,7 +136,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         <FormGroup
                             label="Giá sản phẩm"
                             name="price"
-                            type="text"
+                            type="number"
                             errors={errors}
                             register={register}
                             isRequired={true}
