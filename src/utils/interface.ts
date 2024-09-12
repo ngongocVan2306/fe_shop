@@ -75,11 +75,12 @@ export interface ICate {
 }
 
 export interface IResLogin {
-    user: Omit<IUser, "password">;
-    tokens: {
-        access_token: string;
-        refresh_token: string;
-    };
+    user: IUser;
+    // user: Omit<IUser, "password">;
+    // tokens: {
+    //     access_token: string;
+    //     refresh_token: string;
+    // };
 }
 
 export interface ICate {

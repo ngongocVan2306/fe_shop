@@ -1,12 +1,12 @@
 "use client";
 
 import { routes } from "@/utils/menuRouters";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import thumbnail from "../../../../../public/hero-bg.jpg";
 import { IUser } from "@/utils/interface";
 import { handleLoginAction, handleRegisterAction } from "@/action/authAction";
 import Swal from "sweetalert2";
-import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { loginSuccess } from "@/store/feauture/authSlice";
 import { FieldValues, useForm } from "react-hook-form";
@@ -38,12 +38,15 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
         formState: { errors },
     } = useForm();
 
-    const handleRegister = async (data: FieldValues) => {
+    const handleAuth = async (data: FieldValues) => {
         try {
             const dataBuider: Partial<IUser> = {
                 ...data,
             };
-            const res = await handleRegisterAction(dataBuider);
+            const res =
+                slug === routes.register.label
+                    ? await handleRegisterAction(dataBuider)
+                    : await handleLoginAction(dataBuider);
             Swal.fire({
                 icon:
                     res.code === 200
@@ -51,37 +54,19 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                         : toastStatus.WARNING,
                 title: res.msg,
             });
-            if (res.code === 200) {
+
+            if (res.code === 200 && slug === routes.register.label) {
                 reset();
+                return;
             }
+
+            dispatch(loginSuccess(res.data?.user));
+            router.push(routes.home.url);
         } catch (err) {
             console.log(err);
             Swal.fire({
                 icon: toastStatus.ERROR,
                 title: "Error",
-            });
-        }
-    };
-
-    const handleLogin = async (data: FieldValues) => {
-        try {
-            const dataBuider: Partial<IUser> = {
-                ...data,
-            };
-            const res = await handleLoginAction(dataBuider);
-            Swal.fire({
-                icon: res.code === 200 ? "success" : "warning",
-                title: res.msg,
-            });
-            if (res.code === 200) {
-                dispatch(loginSuccess(res.data.user));
-                router.push(routes.home.url);
-            }
-        } catch (err) {
-            console.log(err);
-            Swal.fire({
-                icon: "warning",
-                title: "error",
             });
         }
     };
@@ -110,11 +95,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                 </p>
 
                 <form
-                    onSubmit={handleSubmit(
-                        slug === routes.register.label
-                            ? handleRegister
-                            : handleLogin
-                    )}
+                    onSubmit={handleSubmit(handleAuth)}
                     className="w-full flex flex-col justify-center items-center"
                 >
                     <FormGroup
@@ -122,21 +103,20 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                         name={menuRegister.email}
                         type="email"
                         register={register}
-                        rules={{ required: "Email không được để trống" }}
+                        isRequired={true}
+                        rules={{}}
                         errors={errors}
                     />
 
                     {slug === routes.register.label && (
                         <>
-                            {" "}
                             <FormGroup
                                 label="First Name"
                                 name={menuRegister.firstName}
                                 type="text"
                                 register={register}
-                                rules={{
-                                    required: "Firstname không được để trống",
-                                }}
+                                isRequired={true}
+                                rules={{}}
                                 errors={errors}
                             />
                             <FormGroup
@@ -144,9 +124,8 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                                 name={menuRegister.lastName}
                                 type="text"
                                 register={register}
-                                rules={{
-                                    required: "Lastname không được để trống",
-                                }}
+                                isRequired={true}
+                                rules={{}}
                                 errors={errors}
                             />
                         </>
@@ -157,8 +136,8 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                         name={menuRegister.password}
                         type="password"
                         register={register}
+                        isRequired={true}
                         rules={{
-                            required: "Password không được để trống",
                             minLength: 8,
                         }}
                         errors={errors}
@@ -170,8 +149,8 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                             name={menuRegister.rePassword}
                             type="password"
                             register={register}
+                            isRequired={true}
                             rules={{
-                                required: "re-password Không được đẻ trống",
                                 minLength: 8,
                                 validate: (value: string) =>
                                     value === getValues("password") ||

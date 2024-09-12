@@ -6,7 +6,7 @@ import { api } from "@/constants";
 
 export const handleRegisterAction = async (
     dataBuider: Partial<IUser>
-): Promise<IRes<IUser>> => {
+): Promise<IRes<IResLogin>> => {
     return axios.post(api.REGISTER, dataBuider, {
         withCredentials: true,
     });

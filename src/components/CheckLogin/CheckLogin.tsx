@@ -14,7 +14,7 @@ export default function CheckLogin({
 
     if (isLogin) {
         router.push(routes.home.url);
-        return null;
+        return;
     }
 
     return <div className="w-full">{children}</div>;
