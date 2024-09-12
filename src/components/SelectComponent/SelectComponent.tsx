@@ -1,0 +1,33 @@
+import { ICate } from "@/utils/interface";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+
+const SelectComponent = ({
+    data,
+    name,
+    rules,
+    register,
+}: {
+    data: ICate[];
+    name: string;
+    rules: any;
+    register: UseFormRegister<FieldValues>;
+}) => {
+    return (
+        <select
+            {...register(name, rules)}
+            className="border-solid border-[1px] border-[#ccc] rounded-[10px] outline-none p-[8px] w-[100%] h-[40px] text-[16px]"
+        >
+            {data &&
+                data.length > 0 &&
+                data.map((item) => {
+                    return (
+                        <option value={item.id} key={item.id}>
+                            {item.name}
+                        </option>
+                    );
+                })}
+        </select>
+    );
+};
+
+export default SelectComponent;

@@ -1,4 +1,4 @@
-import { TInput } from "@/utils/interface";
+import { ICate, TInput } from "@/utils/interface";
 import InputComponent from "../InputComponent/InputComponent";
 import LabelComponent from "../LabelComponent/LabelComponent";
 import {
@@ -7,6 +7,7 @@ import {
     UseFormGetValues,
     UseFormRegister,
 } from "react-hook-form";
+import SelectComponent from "../SelectComponent/SelectComponent";
 
 const FormGroup = ({
     label,
@@ -19,6 +20,8 @@ const FormGroup = ({
     getValues,
     rules = {},
     errors,
+    isSelect = false,
+    dataSelect = [],
 }: {
     label: string;
     name: string;
@@ -30,7 +33,9 @@ const FormGroup = ({
     getValues?: UseFormGetValues<FieldValues>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rules?: any;
+    isSelect?: boolean;
     errors?: FieldErrors<FieldValues>;
+    dataSelect?: ICate[];
 }) => {
     if (isRequired) {
         rules.required = label + " Không được để trống !";
@@ -50,13 +55,22 @@ const FormGroup = ({
     return (
         <div className="w-full mt-[15px]">
             <LabelComponent value={label} />
-            <InputComponent
-                name={name}
-                type={type}
-                register={register}
-                rules={rules}
-                errors={errors}
-            />
+            {isSelect ? (
+                <SelectComponent
+                    name={name}
+                    data={dataSelect}
+                    register={register}
+                    rules={rules}
+                />
+            ) : (
+                <InputComponent
+                    name={name}
+                    type={type}
+                    register={register}
+                    rules={rules}
+                    errors={errors}
+                />
+            )}
         </div>
     );
 };

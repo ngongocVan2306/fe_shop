@@ -4,6 +4,8 @@ export const api = {
     REGISTER: "/user/register",
     LOGIN: "/user/login",
     LOGOUT: "/user/logout",
+    CATE: "/cate",
+    PRODUCT: "/product",
 };
 
 export const resStatus = {
@@ -14,4 +16,12 @@ export const toastStatus: IStatusToast = {
     SUCCESS: "success",
     WARNING: "warning",
     ERROR: "error",
+    QUESTION: "question",
+    INFO: "info",
 };
+
+export const role = {
+    ADMIN: "admin",
+};
+
+export const mesError: string = "Đã có lỗi xảy ra bạn vui lòng thử lại sau !";
