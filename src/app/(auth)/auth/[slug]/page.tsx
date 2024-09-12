@@ -55,7 +55,10 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                 title: res.msg,
             });
 
-            if (res.code === 200 && slug === routes.register.label) {
+            if (
+                res.code === resStatus.SUCCESS &&
+                slug === routes.register.label
+            ) {
                 reset();
                 return;
             }
@@ -65,7 +68,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
         } catch (err) {
             console.log(err);
             Swal.fire({
-                icon: "error",
+                icon: toastStatus.ERROR,
                 title: "Error",
             });
         }
