@@ -1,3 +1,5 @@
+import { SweetAlertIcon } from "sweetalert2";
+
 export interface IGroupRoute {
     home: {
         label: string;
@@ -73,11 +75,12 @@ export interface ICate {
 }
 
 export interface IResLogin {
-    user: Omit<IUser, "password">;
-    tokens: {
-        access_token: string;
-        refresh_token: string;
-    };
+    user: IUser;
+    // user: Omit<IUser, "password">;
+    // tokens: {
+    //     access_token: string;
+    //     refresh_token: string;
+    // };
 }
 
 export interface ICate {
@@ -123,4 +126,20 @@ export interface ICart {
     product_id: number;
     count: number;
     productData: IProduct;
+}
+
+export type TInput = "email" | "password" | "phone" | "text";
+
+export interface IMenuRegister {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    rePassword: string;
+}
+
+export interface IStatusToast {
+    SUCCESS: SweetAlertIcon;
+    WARNING: SweetAlertIcon;
+    ERROR: SweetAlertIcon;
 }

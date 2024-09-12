@@ -1,4 +1,4 @@
-export default function Loading() {
+const Loading = () => {
     return (
         <button
             disabled
@@ -22,4 +22,6 @@ export default function Loading() {
             </svg>
         </button>
     );
-}
+};
+
+export default Loading;
