@@ -1,3 +1,5 @@
+import { SweetAlertIcon } from "sweetalert2";
+
 export interface IGroupRoute {
     home: {
         label: string;
@@ -134,4 +136,10 @@ export interface IMenuRegister {
     lastName: string;
     password: string;
     rePassword: string;
+}
+
+export interface IStatusToast {
+    SUCCESS: SweetAlertIcon;
+    WARNING: SweetAlertIcon;
+    ERROR: SweetAlertIcon;
 }

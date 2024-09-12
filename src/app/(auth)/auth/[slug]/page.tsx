@@ -13,7 +13,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import FormGroup from "@/components/FormGroup/FormGroup";
 import LinkComponent from "@/components/LinkComponent/LinkComponent";
 import { menuRegister } from "@/utils/menuRegister";
-import { toastStatus } from "@/constants";
+import { resStatus, toastStatus } from "@/constants";
 import Image from "next/image";
 import iconHome from "../../../../../assets/icons/iconHome.svg";
 
@@ -48,7 +48,10 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                     ? await handleRegisterAction(dataBuider)
                     : await handleLoginAction(dataBuider);
             Swal.fire({
-                icon: res.code === toastStatus.SUCCESS ? "success" : "warning",
+                icon:
+                    res.code === resStatus.SUCCESS
+                        ? toastStatus.SUCCESS
+                        : toastStatus.ERROR,
                 title: res.msg,
             });
 
@@ -101,7 +104,6 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                         type="email"
                         register={register}
                         isRequired={true}
-                        rules={{}}
                         errors={errors}
                     />
 
@@ -113,7 +115,6 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                                 type="text"
                                 register={register}
                                 isRequired={true}
-                                rules={{}}
                                 errors={errors}
                             />
                             <FormGroup
@@ -122,7 +123,6 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                                 type="text"
                                 register={register}
                                 isRequired={true}
-                                rules={{}}
                                 errors={errors}
                             />
                         </>
@@ -134,9 +134,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                         type="password"
                         register={register}
                         isRequired={true}
-                        rules={{
-                            minLength: 8,
-                        }}
+                        min={8}
                         errors={errors}
                     />
 
@@ -147,12 +145,8 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                             type="password"
                             register={register}
                             isRequired={true}
-                            rules={{
-                                minLength: 8,
-                                validate: (value: string) =>
-                                    value === getValues("password") ||
-                                    "re-password phải giống password",
-                            }}
+                            min={8}
+                            getValues={getValues}
                             errors={errors}
                         />
                     )}
