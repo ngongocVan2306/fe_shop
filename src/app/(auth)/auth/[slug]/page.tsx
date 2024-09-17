@@ -13,7 +13,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import FormGroup from "@/components/FormGroup/FormGroup";
 import LinkComponent from "@/components/LinkComponent/LinkComponent";
 import { menuRegister } from "@/utils/menuRegister";
-import { resStatus, toastStatus } from "@/constants";
+import { mesError, resStatus, toastStatus } from "@/constants";
 import Image from "next/image";
 import iconHome from "../../../../../assets/icons/iconHome.svg";
 
@@ -69,7 +69,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
             console.log(err);
             Swal.fire({
                 icon: toastStatus.ERROR,
-                title: "Error",
+                title: mesError,
             });
         }
     };

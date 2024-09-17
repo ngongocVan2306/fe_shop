@@ -128,7 +128,7 @@ export interface ICart {
     productData: IProduct;
 }
 
-export type TInput = "email" | "password" | "phone" | "text";
+export type TInput = "email" | "password" | "phone" | "text" | "number" | "";
 
 export interface IMenuRegister {
     email: string;
@@ -142,4 +142,12 @@ export interface IStatusToast {
     SUCCESS: SweetAlertIcon;
     WARNING: SweetAlertIcon;
     ERROR: SweetAlertIcon;
+    QUESTION: SweetAlertIcon;
+    INFO: SweetAlertIcon;
+}
+
+export interface IMenuSidebar {
+    label: string;
+    url: string;
+    parent: string;
 }
