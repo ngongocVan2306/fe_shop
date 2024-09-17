@@ -41,7 +41,7 @@ const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
                         <SidebarAdmin handleToggleSibar={handleToggleSibar} />
                     </div>
 
-                    <div className="sm:ml-[15%] sm:w-[85%] w-[100%] h-[100%]">
+                    <div className="sm:ml-[15%] sm:w-[85%] w-[100%] h-[100%] pt-[var(--height-header)]">
                         {children}
                     </div>
                 </div>

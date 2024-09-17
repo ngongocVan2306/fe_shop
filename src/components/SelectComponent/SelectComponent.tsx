@@ -9,6 +9,7 @@ const SelectComponent = ({
 }: {
     data: ICate[];
     name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rules: any;
     register: UseFormRegister<FieldValues>;
 }) => {
