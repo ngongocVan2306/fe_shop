@@ -1,4 +1,4 @@
-import { defaultPagination } from "./defaultPagination";
+import { defaultPagination } from "@/constants";
 import { IMenuSidebar } from "./interface";
 import { routes } from "./menuRouters";
 
@@ -10,7 +10,9 @@ export const menuSidebarAdmin: IMenuSidebar[] = [
     },
     {
         label: "Sản phẩm",
-        url: routes.manageProduct?.url + `/0${defaultPagination}`,
+        url:
+            routes.manageProduct?.url +
+            `/${defaultPagination.type}${defaultPagination.url}`,
         parent: routes.product.url,
     },
 ];

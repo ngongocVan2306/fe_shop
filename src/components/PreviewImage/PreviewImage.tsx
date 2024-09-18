@@ -1,5 +1,6 @@
 "use client";
 
+import { isEmpty } from "@/utils/isEmpty";
 import { Image } from "antd";
 
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ export default function PreviewImage({
     const [dataListImages, setDataListImages] = useState<string[]>([]);
 
     useEffect(() => {
-        if (data.length > 0) {
+        if (!isEmpty(data)) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const arrLinkImage = data.map((item: any) => {
                 if (isFile) return URL.createObjectURL(item);
@@ -80,8 +81,7 @@ export default function PreviewImage({
                 {...settings}
                 // defaultChecked={1}
             >
-                {dataListImages &&
-                    dataListImages.length > 0 &&
+                {!isEmpty(dataListImages) &&
                     dataListImages.map((item, index) => (
                         <div key={index} className="w-[100px] h-[100px]">
                             <Image

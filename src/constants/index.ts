@@ -25,3 +25,11 @@ export const role = {
 };
 
 export const mesError: string = "Đã có lỗi xảy ra bạn vui lòng thử lại sau !";
+
+export const defaultPagination = {
+    page: 1,
+    pageSize: 10,
+    type: 0,
+    userId: 0,
+    url: "?page=1&pageSize=10",
+};
