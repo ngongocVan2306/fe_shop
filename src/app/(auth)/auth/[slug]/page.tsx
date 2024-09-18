@@ -51,7 +51,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                 icon:
                     res.code === resStatus.SUCCESS
                         ? toastStatus.SUCCESS
-                        : toastStatus.ERROR,
+                        : toastStatus.WARNING,
                 title: res.msg,
             });
 
@@ -149,6 +149,7 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
                             register={register}
                             isRequired={true}
                             min={8}
+                            isRePassword={true}
                             getValues={getValues}
                             errors={errors}
                         />

@@ -1,6 +1,6 @@
 "use server";
 
-import { IRes } from "@/utils/interface";
+import { IDataGet, IProduct, IRes } from "@/utils/interface";
 import axios from "../helpers/axios";
 import { api } from "@/constants";
 
@@ -11,5 +11,27 @@ export const handleAddProductService = async (
         headers: {
             "Content-Type": "multipart/form-data",
         },
+    });
+};
+
+export const handleGetProductService = async ({
+    page,
+    pageSize,
+    type,
+}: {
+    page: number;
+    pageSize: number;
+    type: number;
+}): Promise<IRes<IDataGet<IProduct>>> => {
+    return await axios.get(
+        `/product?page=${page}&pageSize=${pageSize}&type=${type}`
+    );
+};
+
+export const handleDeleteProductService = async (
+    id: number
+): Promise<IRes<null>> => {
+    return await axios.delete(`/product/${id}`, {
+        withCredentials: true,
     });
 };

@@ -1,15 +1,22 @@
 import { handleGetCateAction } from "@/action/cateAction";
-import AddProduct from "@/components/AddProduct/AddProduct";
 import PageError from "@/components/PageError/PageError";
+import OptionCate from "@/components/Product/OptionCate";
 import { mesError, resStatus } from "@/constants";
 
-export default async function PageAddProduct() {
+export default async function LayoutManageProduct({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     try {
         const res = await handleGetCateAction();
+
         if (res.code === resStatus.SUCCESS) {
             return (
                 <div className="w-[100%] h-[100%]">
-                    <AddProduct cates={res.data} />
+                    <OptionCate cates={res.data} />
+
+                    <div className="w-full">{children}</div>
                 </div>
             );
         }
