@@ -13,11 +13,12 @@ import {
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import { IProduct } from "@/utils/interface";
 import { isEmpty } from "@/utils/isEmpty";
-import { Empty, Pagination } from "antd";
+import { Empty } from "antd";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import usePagination from "@/hook/usePagination";
 import { useState } from "react";
+import PaginationCustom from "../PaginationCustom/PaginationCustom";
 
 export default function ManageProduct({
     isAdmin,
@@ -28,7 +29,7 @@ export default function ManageProduct({
 }) {
     const [reload, setReload] = useState<boolean>(false);
 
-    const { isLoading, products, meta, handleChangePage } = usePagination({
+    const { isLoading, products, meta } = usePagination({
         api: handleGetProductService,
         is_reload: reload,
         page: defaultPagination.page,
@@ -143,14 +144,9 @@ export default function ManageProduct({
                 )}
             </div>
 
-            {meta && meta.totalIteams > 0 && (
-                <div className="w-full flex justify-center my-[40px]">
-                    <Pagination
-                        total={meta.totalIteams}
-                        onChange={(e) => handleChangePage(e)}
-                    />
-                </div>
-            )}
+            <div className="w-full flex justify-center my-[40px]">
+                <PaginationCustom total={meta?.totalIteams} />
+            </div>
         </div>
     );
 }

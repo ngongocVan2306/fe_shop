@@ -2,12 +2,13 @@
 
 import { resStatus } from "@/constants";
 import { IDataGet, IMeta, IProduct, IRes } from "@/utils/interface";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const usePagination = ({
     api,
-    page,
-    pageSize,
+    // page,
+    pageSize = 10,
     type = 0,
     is_reload = false,
 }: {
@@ -21,13 +22,15 @@ const usePagination = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [products, setProducts] = useState<IProduct[]>([]);
     const [meta, setMeta] = useState<IMeta | null>(null);
-    const [pagination, setPagination] = useState<{
-        page: number;
-        pageSize: number;
-    }>({
-        page: page,
-        pageSize: pageSize,
-    });
+    // const [pagination, setPagination] = useState<{
+    //     page: number;
+    //     pageSize: number;
+    // }>({
+    //     page: currentPage,
+    //     pageSize: pageSize,
+    // });
+
+    const currentPage = useSearchParams().get("page");
 
     useEffect(() => {
         const _fetch = async () => {
@@ -35,7 +38,8 @@ const usePagination = ({
                 setIsLoading(true);
 
                 const Res: IRes<IDataGet<IProduct>> = await api({
-                    ...pagination,
+                    pageSize: pageSize,
+                    page: currentPage,
                     type: type,
                 });
 
@@ -50,24 +54,24 @@ const usePagination = ({
         };
         _fetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [api, pagination.page, pagination.pageSize, type, is_reload]);
+    }, [api, currentPage, type, is_reload]);
 
-    const handleChangePage = (page: number) => {
-        if (meta) {
-            if (page >= 0 && page <= meta.totalPages) {
-                setPagination((prev) => ({
-                    ...prev,
-                    page: page,
-                }));
-            }
-        }
-    };
+    // const handleChangePage = (page: number) => {
+    //     if (meta) {
+    //         if (page >= 0 && page <= meta.totalPages) {
+    //             setPagination((prev) => ({
+    //                 ...prev,
+    //                 page: page,
+    //             }));
+    //         }
+    //     }
+    // };
 
     return {
         isLoading,
         products,
         meta,
-        handleChangePage,
+        // handleChangePage,
     };
 };
 
