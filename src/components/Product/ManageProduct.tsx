@@ -1,45 +1,42 @@
 "use client";
 
-import { handleDeleteProductService } from "@/action/productAction";
-import { mesError, resStatus, toastStatus } from "@/constants";
+import {
+    handleDeleteProductService,
+    handleGetProductService,
+} from "@/action/productAction";
+import {
+    defaultPagination,
+    mesError,
+    resStatus,
+    toastStatus,
+} from "@/constants";
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
-import { IDataGet, IProduct } from "@/utils/interface";
+import { IProduct } from "@/utils/interface";
 import { isEmpty } from "@/utils/isEmpty";
 import { Empty, Pagination } from "antd";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import usePagination from "@/hook/usePagination";
+import { useState } from "react";
 
 export default function ManageProduct({
-    data,
     isAdmin,
+    type,
 }: {
-    data: IDataGet<IProduct>;
     isAdmin: boolean;
+    type: number;
 }) {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [reload, setReload] = useState<boolean>(false);
 
-    const searchParams = useSearchParams();
-    const { replace } = useRouter();
-    const pathname = usePathname();
-    const [products, setProducts] = useState<IProduct[]>(data.items);
-
-    const handleChange = (e: number) => {
-        const params = new URLSearchParams(searchParams);
-        if (e) {
-            params.set("page", e.toString());
-        }
-
-        replace(`${pathname}?${params.toString()}`);
-    };
-
-    useEffect(() => {
-        setProducts(data.items);
-    }, [data]);
+    const { isLoading, products, meta, handleChangePage } = usePagination({
+        api: handleGetProductService,
+        is_reload: reload,
+        page: defaultPagination.page,
+        pageSize: defaultPagination.pageSize,
+        type: type,
+    });
 
     const handleDeleteProduct = (e: React.MouseEvent, product: IProduct) => {
-        setIsLoading(true);
         if (e && e.stopPropagation) {
             e.stopPropagation();
         }
@@ -53,9 +50,7 @@ export default function ManageProduct({
                 try {
                     const res = await handleDeleteProductService(product.id);
                     if (res.code === resStatus.SUCCESS) {
-                        setProducts((prev) =>
-                            prev.filter((item) => item.id !== product.id)
-                        );
+                        setReload(!reload);
                     }
                     Swal.fire({
                         icon:
@@ -73,8 +68,6 @@ export default function ManageProduct({
                 }
             }
         });
-
-        setIsLoading(false);
     };
 
     return (
@@ -150,16 +143,11 @@ export default function ManageProduct({
                 )}
             </div>
 
-            {data.meta && data.meta.totalIteams > 0 && (
+            {meta && meta.totalIteams > 0 && (
                 <div className="w-full flex justify-center my-[40px]">
                     <Pagination
-                        defaultCurrent={
-                            searchParams.get("page")
-                                ? +(searchParams.get("page") as string)
-                                : 1
-                        }
-                        total={data.meta.totalIteams}
-                        onChange={handleChange}
+                        total={meta.totalIteams}
+                        onChange={(e) => handleChangePage(e)}
                     />
                 </div>
             )}

@@ -23,13 +23,15 @@ export const handleGetProductService = async ({
     pageSize: number;
     type: number;
 }): Promise<IRes<IDataGet<IProduct>>> => {
-    return axios.get(`/product?page=${page}&pageSize=${pageSize}&type=${type}`);
+    return await axios.get(
+        `/product?page=${page}&pageSize=${pageSize}&type=${type}`
+    );
 };
 
 export const handleDeleteProductService = async (
     id: number
 ): Promise<IRes<null>> => {
-    return axios.delete(`/product/${id}`, {
+    return await axios.delete(`/product/${id}`, {
         withCredentials: true,
     });
 };
