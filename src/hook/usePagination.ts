@@ -7,14 +7,12 @@ import { useEffect, useState } from "react";
 
 const usePagination = ({
     api,
-    // page,
-    pageSize = 10,
+    pageSize,
     type = 0,
     is_reload = false,
 }: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     api: any;
-    page: number;
     pageSize: number;
     type: number;
     is_reload: boolean;
@@ -22,13 +20,6 @@ const usePagination = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [products, setProducts] = useState<IProduct[]>([]);
     const [meta, setMeta] = useState<IMeta | null>(null);
-    // const [pagination, setPagination] = useState<{
-    //     page: number;
-    //     pageSize: number;
-    // }>({
-    //     page: currentPage,
-    //     pageSize: pageSize,
-    // });
 
     const currentPage = useSearchParams().get("page");
 
@@ -56,22 +47,10 @@ const usePagination = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [api, currentPage, type, is_reload]);
 
-    // const handleChangePage = (page: number) => {
-    //     if (meta) {
-    //         if (page >= 0 && page <= meta.totalPages) {
-    //             setPagination((prev) => ({
-    //                 ...prev,
-    //                 page: page,
-    //             }));
-    //         }
-    //     }
-    // };
-
     return {
         isLoading,
         products,
         meta,
-        // handleChangePage,
     };
 };
 

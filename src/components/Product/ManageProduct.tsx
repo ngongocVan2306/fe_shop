@@ -32,7 +32,6 @@ export default function ManageProduct({
     const { isLoading, products, meta } = usePagination({
         api: handleGetProductService,
         is_reload: reload,
-        page: defaultPagination.page,
         pageSize: defaultPagination.pageSize,
         type: type,
     });

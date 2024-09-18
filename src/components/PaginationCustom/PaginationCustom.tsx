@@ -1,3 +1,4 @@
+import { defaultPagination } from "@/constants";
 import { Pagination } from "antd";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
@@ -15,7 +16,17 @@ const PaginationCustom = ({ total }: { total: number | undefined }) => {
 
         replace(`${pathname}?${params.toString()}`);
     };
-    return <Pagination total={total} onChange={handleChange} />;
+    return (
+        <Pagination
+            current={
+                searchParams.get("page")
+                    ? +(searchParams.get("page") as string)
+                    : defaultPagination.page
+            }
+            total={total}
+            onChange={handleChange}
+        />
+    );
 };
 
 export default PaginationCustom;
