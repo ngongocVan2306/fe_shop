@@ -5,7 +5,10 @@ export const api = {
     LOGIN: "/user/login",
     LOGOUT: "/user/logout",
     CATE: "/cate",
-    PRODUCT: "/product",
+    PRODUCT: {
+        DEFAULT: "/product",
+        SEARCH: "/product/search?textSearch=",
+    },
 };
 
 export const resStatus = {
