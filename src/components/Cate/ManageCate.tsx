@@ -6,6 +6,7 @@ import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
 import Trash from "../icons/Trash";
 import { useState } from "react";
+import { isEmpty } from "@/utils/isEmpty";
 
 export default function ManageCate({ data }: { data: ICate[] }) {
     const [cates, setCates] = useState<ICate[]>(data);
@@ -48,8 +49,7 @@ export default function ManageCate({ data }: { data: ICate[] }) {
                 Quản lí danh mục
             </h4>
             <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 w-full">
-                {cates &&
-                    cates.length > 0 &&
+                {!isEmpty(cates) &&
                     cates.map((item: ICate) => {
                         return (
                             <div

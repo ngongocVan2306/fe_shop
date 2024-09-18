@@ -4,10 +4,11 @@ import { handleDeleteProductService } from "@/action/productAction";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import { IDataGet, IProduct } from "@/utils/interface";
+import { isEmpty } from "@/utils/isEmpty";
 import { Empty, Pagination } from "antd";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function ManageProduct({
@@ -20,9 +21,9 @@ export default function ManageProduct({
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const searchParams = useSearchParams();
-    const router = useRouter();
     const { replace } = useRouter();
     const pathname = usePathname();
+    const [products, setProducts] = useState<IProduct[]>(data.items);
 
     const handleChange = (e: number) => {
         const params = new URLSearchParams(searchParams);
@@ -33,8 +34,11 @@ export default function ManageProduct({
         replace(`${pathname}?${params.toString()}`);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDeleteProduct = (e: any, product: IProduct) => {
+    useEffect(() => {
+        setProducts(data.items);
+    }, [data]);
+
+    const handleDeleteProduct = (e: React.MouseEvent, product: IProduct) => {
         setIsLoading(true);
         if (e && e.stopPropagation) {
             e.stopPropagation();
@@ -42,14 +46,16 @@ export default function ManageProduct({
 
         Swal.fire({
             icon: toastStatus.QUESTION,
-            title: `Bạn có chắc muốn xóa ${product.name} không ?`,
+            title: `Bạn có chắc muốn xóa ${product.name} không?`,
             showCancelButton: true,
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
                     const res = await handleDeleteProductService(product.id);
                     if (res.code === resStatus.SUCCESS) {
-                        router.refresh();
+                        setProducts((prev) =>
+                            prev.filter((item) => item.id !== product.id)
+                        );
                     }
                     Swal.fire({
                         icon:
@@ -74,9 +80,9 @@ export default function ManageProduct({
     return (
         <div className="w-full h-full sm:p-[20px]">
             <div className="">
-                {data && data.items.length > 0 ? (
+                {!isEmpty(products) ? (
                     <div className="grid sm:grid-cols-5 grid-cols-2 gap-4">
-                        {data.items.map((item: IProduct) => {
+                        {products.map((item: IProduct) => {
                             return (
                                 <div
                                     className="border-solid border-[1px] border-[#ccc] rounded-[10px] shadow hover:cursor-pointer hover:opacity-[0.6]"
@@ -147,7 +153,11 @@ export default function ManageProduct({
             {data.meta && data.meta.totalIteams > 0 && (
                 <div className="w-full flex justify-center my-[40px]">
                     <Pagination
-                        defaultCurrent={data.meta.currentPage}
+                        defaultCurrent={
+                            searchParams.get("page")
+                                ? +(searchParams.get("page") as string)
+                                : 1
+                        }
                         total={data.meta.totalIteams}
                         onChange={handleChange}
                     />

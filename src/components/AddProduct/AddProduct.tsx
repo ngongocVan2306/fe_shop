@@ -13,6 +13,7 @@ import LabelComponent from "../LabelComponent/LabelComponent";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import iconAdd from "../../../assets/icons/iconAdd.svg";
 import Image from "next/image";
+import { isEmpty } from "@/utils/isEmpty";
 
 export default function AddProduct({ cates }: { cates: ICate[] }) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -185,9 +186,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         accept="image/png, image/gif, image/jpeg"
                     />
 
-                    {files.length > 0 ? (
-                        <></>
-                    ) : (
+                    {isEmpty(files) && (
                         <div
                             className="sm:w-[80%] w-full h-[200px] relative border-solid border-[1px] border-[#ccc] rounded-[10px] flex justify-center items-center"
                             onClick={() => handleClickChooseFile()}

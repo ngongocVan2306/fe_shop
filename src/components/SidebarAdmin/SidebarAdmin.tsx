@@ -7,6 +7,7 @@ import { routes } from "@/utils/menuRouters";
 import Link from "next/link";
 import { menuSidebarAdmin } from "@/utils/menuSidebarAdmin";
 import { defaultPagination } from "@/constants";
+import { isEmpty } from "@/utils/isEmpty";
 
 export default function SidebarAdmin({
     handleToggleSibar,
@@ -35,8 +36,7 @@ export default function SidebarAdmin({
             </div>
 
             <ul className=" w-[100%]">
-                {menuSidebarAdmin &&
-                    menuSidebarAdmin.length > 0 &&
+                {!isEmpty(menuSidebarAdmin) &&
                     menuSidebarAdmin.map((item, index) => {
                         return (
                             <Link href={item.url} key={index}>

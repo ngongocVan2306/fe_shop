@@ -4,24 +4,27 @@ import { defaultPagination } from "@/constants";
 import { ICate } from "@/utils/interface";
 import { routes } from "@/utils/menuRouters";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import iconMenu from "../../../assets/icons/iconMenu.svg";
 import Image from "next/image";
+import { isEmpty } from "@/utils/isEmpty";
+import { useResize } from "@/hook/useResize";
 
 export default function Categories({ data }: { data: ICate[] }) {
     const router = useRouter();
     const [currentType, setCurrentType] = useState<number>(0);
     const [isView, setIsView] = useState<boolean>(true);
 
-    const [width, setWidth] = useState<number>(
-        typeof window !== "undefined" ? window.innerWidth : 0
-    );
+    const width = useResize();
+    // const [width, setWidth] = useState<number>(
+    //     typeof window !== "undefined" ? window.innerWidth : 0
+    // );
 
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    // useEffect(() => {
+    //     const handleResize = () => setWidth(window.innerWidth);
+    //     window.addEventListener("resize", handleResize);
+    //     return () => window.removeEventListener("resize", handleResize);
+    // }, []);
 
     const handleRedirect = useCallback(
         (url: number) => {
@@ -62,8 +65,7 @@ export default function Categories({ data }: { data: ICate[] }) {
                         </p>
                     </li>
 
-                    {data &&
-                        data.length > 0 &&
+                    {!isEmpty(data) &&
                         data.map((item) => (
                             <li
                                 key={item.id}

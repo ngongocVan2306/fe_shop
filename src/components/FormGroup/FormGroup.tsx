@@ -38,11 +38,17 @@ const FormGroup = ({
     dataSelect?: ICate[];
 }) => {
     if (isRequired) {
-        rules.required = label + " Không được để trống !";
+        rules.required = {
+            value: true,
+            message: label + " Không được để trống !",
+        };
     }
 
     if (min) {
-        rules.minLength = 8;
+        rules.minLength = {
+            value: min,
+            message: "Trường này không được ít hơn " + min + " kí tự !",
+        };
     }
 
     if (isRePassword && getValues) {
@@ -52,6 +58,7 @@ const FormGroup = ({
                 : "re-password phải giống password!";
         };
     }
+
     return (
         <div className="w-full mt-[15px]">
             <LabelComponent value={label} />

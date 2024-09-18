@@ -2,6 +2,7 @@
 
 import { defaultPagination } from "@/constants";
 import { ICate } from "@/utils/interface";
+import { isEmpty } from "@/utils/isEmpty";
 import { routes } from "@/utils/menuRouters";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,8 +26,7 @@ export default function OptionCate({ cates }: { cates: ICate[] }) {
                     }}
                 >
                     <option value="0">Tất cả</option>
-                    {cates &&
-                        cates.length > 0 &&
+                    {!isEmpty(cates) &&
                         cates.map((item: ICate) => {
                             return (
                                 <option value={item.id} key={item.id}>

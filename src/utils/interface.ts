@@ -151,3 +151,8 @@ export interface IMenuSidebar {
     url: string;
     parent: string;
 }
+
+export interface ISearchParams {
+    page: string;
+    pageSize: string;
+}

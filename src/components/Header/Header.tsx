@@ -25,7 +25,7 @@ export default function Header({ data }: { data: ICate[] }) {
     const dispatch = useAppDispatch();
 
     const handleLogout = async () => {
-        await handleLogoutAction();
+        handleLogoutAction();
         dispatch(logout());
     };
 
