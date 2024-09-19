@@ -1,15 +1,15 @@
-const handleParams = ({
-    page,
-    pageSize,
-    textSearch,
-    type,
-}: {
+const handleParams = (params: {
     page?: number;
     pageSize?: number;
     textSearch?: string;
     type?: number;
 }): string => {
-    return `?page=${page}&pageSize=${pageSize}&textSearch=${textSearch}&type=${type}`;
+    let result = "?";
+    for (const [key, value] of Object.entries(params)) {
+        result = result + `${key}=${value}&`;
+    }
+
+    return result;
 };
 
 export default handleParams;
