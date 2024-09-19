@@ -1,3 +1,4 @@
+import { handleGetProductService } from "@/action/productAction";
 import ManageProduct from "@/components/Product/ManageProduct";
 
 import { Suspense } from "react";
@@ -9,7 +10,11 @@ export default async function PageList({
 }) {
     return (
         <Suspense fallback={<div>Loading.....</div>}>
-            <ManageProduct type={+id} isAdmin={true} />
+            <ManageProduct
+                type={+id}
+                isAdmin={true}
+                api={handleGetProductService}
+            />
         </Suspense>
     );
 }

@@ -45,6 +45,10 @@ export interface IGroupRoute {
         label: string;
         url: string;
     };
+    search: {
+        label: string;
+        url: string;
+    };
 }
 
 export interface IRes<T> {

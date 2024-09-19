@@ -10,9 +10,7 @@ export const menuSidebarAdmin: IMenuSidebar[] = [
     },
     {
         label: "Sản phẩm",
-        url:
-            routes.manageProduct?.url +
-            `/${defaultPagination.type}${defaultPagination.url}`,
+        url: routes.manageProduct?.url + `/${defaultPagination.type}`,
         parent: routes.product.url,
     },
 ];

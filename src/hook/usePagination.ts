@@ -1,14 +1,14 @@
 "use client";
 
-import { resStatus } from "@/constants";
+import { defaultPagination, resStatus } from "@/constants";
 import { IDataGet, IMeta, IProduct, IRes } from "@/utils/interface";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const usePagination = ({
     api,
-    pageSize,
-    type = 0,
+    pageSize = defaultPagination.pageSize,
+    type = defaultPagination.type,
     is_reload = false,
 }: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,6 +22,7 @@ const usePagination = ({
     const [meta, setMeta] = useState<IMeta | null>(null);
 
     const currentPage = useSearchParams().get("page");
+    const textSearch = useSearchParams().get("textSearch");
 
     useEffect(() => {
         const _fetch = async () => {
@@ -30,8 +31,9 @@ const usePagination = ({
 
                 const Res: IRes<IDataGet<IProduct>> = await api({
                     pageSize: pageSize,
-                    page: currentPage,
+                    page: currentPage ? currentPage : defaultPagination.page,
                     type: type,
+                    textSearch: textSearch,
                 });
 
                 if (Res.code === resStatus.SUCCESS) {
@@ -45,7 +47,7 @@ const usePagination = ({
         };
         _fetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [api, currentPage, type, is_reload]);
+    }, [api, currentPage, type, is_reload, textSearch]);
 
     return {
         isLoading,

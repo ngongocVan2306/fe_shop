@@ -5,7 +5,11 @@ export const api = {
     LOGIN: "/user/login",
     LOGOUT: "/user/logout",
     CATE: "/cate",
-    PRODUCT: "/product",
+    PRODUCT: {
+        DEFAULT: "/product",
+        SEARCH: "/product/search",
+        DETAIL: "/product/detail",
+    },
 };
 
 export const resStatus = {
@@ -31,5 +35,4 @@ export const defaultPagination = {
     pageSize: 10,
     type: 0,
     userId: 0,
-    url: "?page=1&pageSize=10",
 };

@@ -18,9 +18,7 @@ export default function Home() {
                 />
 
                 <div className="flex items-center justify-center sm:flex-row w-full">
-                    <Link
-                        href={`${routes.home.url}/${defaultPagination.type}${defaultPagination.url}`}
-                    >
+                    <Link href={`${routes.home.url}/${defaultPagination.type}`}>
                         <button className="bg-[blue] px-[28px] py-[8px] text-[#fff] rounded-[10px] shadow">
                             Home
                         </button>

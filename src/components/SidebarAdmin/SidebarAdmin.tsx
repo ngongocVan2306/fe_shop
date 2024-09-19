@@ -19,12 +19,7 @@ export default function SidebarAdmin({
     return (
         <div className="w-[100%] h-[100vh] shadow">
             <div className="w-[100%] flex justify-center py-[20px] border-solid border-b-[1px] border-[#ddd]">
-                <Link
-                    href={
-                        routes.home.url +
-                        `/${defaultPagination.type}${defaultPagination.url}`
-                    }
-                >
+                <Link href={routes.home.url + `/${defaultPagination.type}`}>
                     <Image
                         width={100}
                         height={100}

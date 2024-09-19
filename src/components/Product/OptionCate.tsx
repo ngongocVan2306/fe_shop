@@ -1,6 +1,5 @@
 "use client";
 
-import { defaultPagination } from "@/constants";
 import { ICate } from "@/utils/interface";
 import { isEmpty } from "@/utils/isEmpty";
 import { routes } from "@/utils/menuRouters";
@@ -21,7 +20,7 @@ export default function OptionCate({ cates }: { cates: ICate[] }) {
                     onChange={(e) => {
                         setType(+e.target.value);
                         router.push(
-                            `${routes.manageProduct.url}/${e.target.value}${defaultPagination.url}`
+                            `${routes.manageProduct.url}/${e.target.value}`
                         );
                     }}
                 >
