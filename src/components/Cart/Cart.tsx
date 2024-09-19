@@ -51,7 +51,7 @@ export default function Cart() {
 
     return (
         <div className="w-full h-[100vh] p-[20px] bg-[#f4f4f4]">
-            <div className="w-full flex justify-center max-h-[80vh] overflow-auto none-scroll-bar bg-[#fff]">
+            <div className="w-full flex justify-center max-h-[80vh] overflow-auto none-scroll-bar bg-[#fff] shadow rounded-[10px]">
                 <div className="w-full  p-[20px] ">
                     {!isEmpty(carts) ? (
                         carts.map((item: ICart) => {

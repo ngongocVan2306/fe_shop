@@ -75,7 +75,7 @@ export default function FormSearch() {
             </div>
 
             <div
-                className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[600px] bg-[#ddd] rounded-[5px] shadow "
+                className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[60vh] bg-[#fff] rounded-[10px] shadow p-[5px]"
                 ref={divRef}
             >
                 {!isEmpty(products) &&
@@ -86,7 +86,7 @@ export default function FormSearch() {
                                 key={item.id}
                             >
                                 <div
-                                    className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[var(--color-price)] hover:text-[#fff]"
+                                    className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[#f4f4f4]"
                                     onClick={() => {
                                         setTextSearch("");
                                     }}
@@ -99,12 +99,19 @@ export default function FormSearch() {
                                             item.imageData[0].img_url
                                         }
                                         alt="image"
+                                        className="rounded-[10px]"
                                     />
 
-                                    <div className="ml-[40px]">
-                                        <h5>{item.name}</h5>
-                                        <h5 className="text-[var(--color-price)] ">
-                                            {handleFomatVnd(item.price)}
+                                    <div className="ml-[40px] flex flex-col justify-center w-[70%]">
+                                        <h5 className="font-[600] truncate w-[100%]">
+                                            {item.name}
+                                        </h5>
+                                        <h5>
+                                            Đơn giá :{" "}
+                                            <span className="text-[var(--color-price)] ">
+                                                {" "}
+                                                {handleFomatVnd(item.price)}
+                                            </span>
                                         </h5>
                                     </div>
                                 </div>
