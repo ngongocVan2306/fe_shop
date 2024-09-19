@@ -4,9 +4,10 @@ import { handleDeleteCateAction } from "@/action/cateAction";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
-import Trash from "../icons/Trash";
 import { useState } from "react";
 import { isEmpty } from "@/utils/isEmpty";
+import Image from "next/image";
+import iconTrash from "../../../assets/icons/iconTrash.svg";
 
 export default function ManageCate({ data }: { data: ICate[] }) {
     const [cates, setCates] = useState<ICate[]>(data);
@@ -62,7 +63,12 @@ export default function ManageCate({ data }: { data: ICate[] }) {
                                     className="bg-[red] px-[16px] py-[4px] rounded-[10px] hover:opacity-[0.6]"
                                     onClick={() => handleDeleteCate(item)}
                                 >
-                                    <Trash color="#fff" size={6} />
+                                    <Image
+                                        width={20}
+                                        height={20}
+                                        src={iconTrash}
+                                        alt="trash"
+                                    />
                                 </button>
                             </div>
                         );

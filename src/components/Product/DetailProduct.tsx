@@ -3,8 +3,80 @@
 import { IProduct } from "@/utils/interface";
 import PreviewImage from "../PreviewImage/PreviewImage";
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
+import Image from "next/image";
+import { useState } from "react";
+import { RootState, useAppDispatch, useAppSelector } from "@/store/store";
+import { useRouter } from "next/navigation";
+import { routes } from "@/utils/menuRouters";
+import Swal from "sweetalert2";
+import { mesError, resStatus, toastStatus } from "@/constants";
+import { handleAddToCartService } from "@/action/cartAction";
+import { AddCart } from "@/store/feauture/cartSlice";
+import iconMinus from "../../../assets/icons/iconMinus.svg";
+import iconPlus from "../../../assets/icons/iconPlus.svg";
+import iconCart from "../../../assets/icons/iconCart.svg";
 
 export default function DetailProduct({ product }: { product: IProduct }) {
+    const [count, setCount] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { isLogin, infoUser } = useAppSelector(
+        (state: RootState) => state.auth
+    );
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    const handleValidate = () => {
+        if (!isLogin) {
+            router.push(routes.login.url);
+            return;
+        }
+        if (!count) {
+            Swal.fire({
+                icon: toastStatus.INFO,
+                title: "Bạn vui lòng chọn sô lượng !",
+            });
+            return false;
+        }
+        return true;
+    };
+
+    const handleAddToCart = async () => {
+        setIsLoading(true);
+        const isValid = handleValidate();
+        if (!isValid) {
+            setIsLoading(false);
+            return;
+        }
+
+        Swal.fire({
+            icon: toastStatus.QUESTION,
+            title: "Bạn có chắc muốn thêm sản phẩm này vào giỏ hàng ?",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await handleAddToCartService({
+                    id: product.id,
+                    count: count,
+                    userId: infoUser.id,
+                });
+
+                Swal.fire({
+                    icon:
+                        res.code === resStatus.SUCCESS
+                            ? toastStatus.SUCCESS
+                            : toastStatus.WARNING,
+                    title: res.msg,
+                });
+
+                if (res.code === resStatus.SUCCESS) {
+                    setCount(0);
+                    dispatch(AddCart());
+                }
+            }
+        });
+
+        setIsLoading(false);
+    };
     return (
         <div className="w-full h-[100vh] bg-[#f4f4f4] flex justify-center items-center">
             <div className="sm:w-[70%] w-full bg-[#fff] flex sm:flex-row flex-col justify-center py-[40px] sm:px-[100px] rounded-[5px] shadow">
@@ -35,6 +107,71 @@ export default function DetailProduct({ product }: { product: IProduct }) {
                         <h5>
                             Trong kho còn : <span>{product?.inventory}</span>
                         </h5>
+                    </div>
+
+                    <div className="w-full flex items-center mt-[20px]">
+                        <h5>Số lượng :</h5>
+
+                        <div className="ml-[20px] h-[40px] flex justify-start items-center ">
+                            <button
+                                className="p-[8px] shadow border-solid border-[1px] border-[#ddd] w-[20%] h-[100%]"
+                                onClick={() => {
+                                    count > 0 ? setCount(count - 1) : null;
+                                }}
+                            >
+                                <Image
+                                    width={100}
+                                    height={100}
+                                    src={iconMinus}
+                                    alt="minus"
+                                    className="w-[100%] h-[100%] object-contain"
+                                />
+                            </button>
+                            <input
+                                type="number"
+                                className="w-[80px] h-[100%] p-[8px] shadow border-solid border-[1px] border-[#ddd]"
+                                value={count}
+                                onChange={(e) => setCount(+e.target.value)}
+                            />
+
+                            <button
+                                className="p-[8px] shadow border-solid border-[1px] border-[#ddd] w-[20%] h-[100%]"
+                                onClick={() => {
+                                    count < product.inventory
+                                        ? setCount(count + 1)
+                                        : null;
+                                }}
+                            >
+                                <Image
+                                    width={100}
+                                    height={100}
+                                    src={iconPlus}
+                                    alt="plus"
+                                    className="w-[100%] h-[100%] object-contain"
+                                />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center mt-[80px] ">
+                        <button
+                            className="h-[50px] flex justify-center items-center sm:w-[45%] w-[50%] border-solid border-[1px] border-[var(--color-cart)] bg-[var(--color-button-cart)] text-[var(--color-cart)] sm:p-[10px] rounded-[5px] shadow hover:opacity-[0.6]"
+                            onClick={() =>
+                                !isLoading ? handleAddToCart() : null
+                            }
+                        >
+                            <Image
+                                width={20}
+                                height={20}
+                                src={iconCart}
+                                alt="cart"
+                                className="mr-[5px]"
+                            />
+                            <p>Thêm Vào Giỏ Hàng</p>
+                        </button>
+                        <button className="h-[50px] bg-[var(--color-cart)] sm:w-[45%] w-[50%] text-[#fff] sm:px-[50px] py-[10px] rounded-[5px] shadow hover:opacity-[0.6] ml-[50px]">
+                            Mua Ngay
+                        </button>
                     </div>
                 </div>
             </div>
