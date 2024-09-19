@@ -14,7 +14,7 @@ export default async function PageDetailProduct({ params: { id } }: IParams) {
         const res = await handleGEtDetailProduct(+id);
         if (res.code === resStatus.SUCCESS) {
             return (
-                <div className="w-full h-full">
+                <div className="w-[100%] h-full">
                     <DetailProduct product={res.data} />
                 </div>
             );

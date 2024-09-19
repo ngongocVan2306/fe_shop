@@ -12,9 +12,9 @@ import Swal from "sweetalert2";
 import { resStatus, toastStatus } from "@/constants";
 import { handleAddToCartService } from "@/action/cartAction";
 import { AddCart } from "@/store/feauture/cartSlice";
-import iconMinus from "../../../assets/icons/iconMinus.svg";
-import iconPlus from "../../../assets/icons/iconPlus.svg";
+
 import iconCart from "../../../assets/icons/iconCart.svg";
+import Quantity from "../Quantity/Quantity";
 
 export default function DetailProduct({ product }: { product: IProduct }) {
     const [count, setCount] = useState<number>(0);
@@ -110,47 +110,13 @@ export default function DetailProduct({ product }: { product: IProduct }) {
                     </div>
 
                     <div className="w-full flex items-center mt-[20px]">
-                        <h5>Số lượng :</h5>
+                        <h5 className="mr-[20px] ">Số lượng :</h5>
 
-                        <div className="ml-[20px] h-[40px] flex justify-start items-center ">
-                            <button
-                                className="p-[8px] shadow border-solid border-[1px] border-[#ddd] w-[20%] h-[100%]"
-                                onClick={() => {
-                                    count > 0 ? setCount(count - 1) : null;
-                                }}
-                            >
-                                <Image
-                                    width={100}
-                                    height={100}
-                                    src={iconMinus}
-                                    alt="minus"
-                                    className="w-[100%] h-[100%] object-contain"
-                                />
-                            </button>
-                            <input
-                                type="number"
-                                className="w-[80px] h-[100%] p-[8px] shadow border-solid border-[1px] border-[#ddd]"
-                                value={count}
-                                onChange={(e) => setCount(+e.target.value)}
-                            />
-
-                            <button
-                                className="p-[8px] shadow border-solid border-[1px] border-[#ddd] w-[20%] h-[100%]"
-                                onClick={() => {
-                                    count < product.inventory
-                                        ? setCount(count + 1)
-                                        : null;
-                                }}
-                            >
-                                <Image
-                                    width={100}
-                                    height={100}
-                                    src={iconPlus}
-                                    alt="plus"
-                                    className="w-[100%] h-[100%] object-contain"
-                                />
-                            </button>
-                        </div>
+                        <Quantity
+                            inventory={product.inventory}
+                            count={count}
+                            setCount={setCount}
+                        />
                     </div>
 
                     <div className="flex items-center mt-[80px] ">

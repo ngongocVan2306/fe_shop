@@ -8,7 +8,7 @@ export default async function PageProduct({
 }) {
     return (
         <div className="w-full flex justify-center">
-            <div className="w-[70%]">
+            <div className="sm:w-[70%] w-full">
                 <ManageProduct
                     isAdmin={false}
                     type={+slug}

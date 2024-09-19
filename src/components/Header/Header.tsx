@@ -18,7 +18,8 @@ import { menuButtonAuth } from "@/utils/menuButtonAuth";
 import FormSearch from "../Search/FormSearch";
 import { useEffect } from "react";
 import { handleCountCartServer } from "@/action/cartAction";
-import { startCart } from "@/store/feauture/cartSlice";
+import { clearCart, startCart } from "@/store/feauture/cartSlice";
+import { useRouter } from "next/navigation";
 
 export default function Header({ data }: { data: ICate[] }) {
     const { isLogin, infoUser } = useAppSelector(
@@ -27,6 +28,7 @@ export default function Header({ data }: { data: ICate[] }) {
     const carts = useAppSelector((state: RootState) => state.cart.count);
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         const fetch = async () => {
@@ -41,7 +43,9 @@ export default function Header({ data }: { data: ICate[] }) {
 
     const handleLogout = async () => {
         handleLogoutAction();
+        dispatch(clearCart());
         dispatch(logout());
+        router.push(routes.home.url);
     };
 
     return (

@@ -12,6 +12,7 @@ export const api = {
         CART: "/product/cart",
         COUTCART: "/product/count",
         ADDCART: "/product/addcart",
+        CHANGECART: "/product/change-cart",
     },
 };
 

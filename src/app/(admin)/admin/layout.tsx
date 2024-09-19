@@ -24,7 +24,7 @@ const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
                         setIsView(!isView);
                     }}
                 >
-                    <Image width={100} height={100} src={iconMenu} alt="menu" />
+                    <Image width={20} height={20} src={iconMenu} alt="menu" />
                 </div>
 
                 <div

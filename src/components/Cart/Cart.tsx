@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import PaginationCustom from "../PaginationCustom/PaginationCustom";
+import Quantity from "../Quantity/Quantity";
 
 export default function Cart() {
     const [reload, setReload] = useState<boolean>(false);
@@ -76,10 +77,24 @@ export default function Cart() {
                                     </div>
 
                                     <div className="w-[70%] ml-[20px] border-solid sm:border-r-[1px] border-[#ccc]">
-                                        <h5>{item.productData.name}</h5>
-                                        <h5>
-                                            Số lượng : <span>{item.count}</span>
+                                        <h5 className="font-[600] text-[16px]">
+                                            {item.productData.name}
                                         </h5>
+
+                                        <div className="w-[50%] my-[20px]">
+                                            <Quantity
+                                                count={item.count}
+                                                inventory={
+                                                    item.productData.inventory
+                                                }
+                                                isDetail={false}
+                                                id={item.id}
+                                                handleReload={() =>
+                                                    setReload(!reload)
+                                                }
+                                            />
+                                        </div>
+
                                         <h5>
                                             Giá tiền :{" "}
                                             <span className="text-[var(--color-price)]">

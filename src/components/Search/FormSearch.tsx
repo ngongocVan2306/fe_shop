@@ -58,7 +58,7 @@ export default function FormSearch() {
                     className="w-[50%] h-[100%] mt-[10px]"
                 >
                     <button
-                        className="sm:w-[20%] w-[50%] h-[80%] mr-[20px] p-[8px] flex justify-center rounded-r-[10px] sm:rounded-l-[0px] rounded-l-[10px] text-[#fff] bg-[var(--color-price)]"
+                        className="sm:w-[20%] w-[100%] h-[80%] mr-[20px] p-[8px] flex justify-center rounded-r-[10px] sm:rounded-l-[0px] rounded-l-[10px] text-[#fff] bg-[var(--color-price)]"
                         onClick={() =>
                             width <= 650 ? setIsView(!isView) : null
                         }
@@ -74,12 +74,12 @@ export default function FormSearch() {
                 </Link>
             </div>
 
-            <div
-                className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[60vh] bg-[#fff] rounded-[10px] shadow p-[5px]"
-                ref={divRef}
-            >
-                {!isEmpty(products) &&
-                    products.map((item: IProduct) => {
+            {!isEmpty(products) && (
+                <div
+                    className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[60vh] bg-[#fff] rounded-[10px] shadow p-[5px]"
+                    ref={divRef}
+                >
+                    {products.map((item: IProduct) => {
                         return (
                             <LinkComponent
                                 href={routes.detail.url + item.id}
@@ -118,7 +118,8 @@ export default function FormSearch() {
                             </LinkComponent>
                         );
                     })}
-            </div>
+                </div>
+            )}
         </div>
     );
 }

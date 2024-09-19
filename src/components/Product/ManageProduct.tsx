@@ -117,7 +117,7 @@ export default function ManageProduct({
                                                 </span>
                                             </h5>
                                             <h5>
-                                                Hàng trong kho :{" "}
+                                                Kho còn :{" "}
                                                 <span>{item.inventory}</span>
                                             </h5>
 
