@@ -33,12 +33,7 @@ export default function Header({ data }: { data: ICate[] }) {
     return (
         <div className="w-[100%] h-[100%] flex justify-between items-center sm:px-[40px] px-[5px] shadow bg-[#fff]">
             <div className="sm:w-[10%] hidden sm:block">
-                <Link
-                    href={
-                        routes.home.url +
-                        `/${defaultPagination.type}${defaultPagination.url}`
-                    }
-                >
+                <Link href={routes.home.url + `/${defaultPagination.type}`}>
                     <Image
                         width={100}
                         height={100}

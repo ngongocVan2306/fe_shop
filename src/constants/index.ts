@@ -7,7 +7,8 @@ export const api = {
     CATE: "/cate",
     PRODUCT: {
         DEFAULT: "/product",
-        SEARCH: "/product/search?textSearch=",
+        SEARCH: "/product/search",
+        DETAIL: "/product/detail",
     },
 };
 
@@ -34,5 +35,4 @@ export const defaultPagination = {
     pageSize: 10,
     type: 0,
     userId: 0,
-    url: "?page=1&pageSize=10",
 };

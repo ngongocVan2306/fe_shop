@@ -1,6 +1,5 @@
 "use client";
 
-import { defaultPagination } from "@/constants";
 import { ICate } from "@/utils/interface";
 import { routes } from "@/utils/menuRouters";
 import { useRouter } from "next/navigation";
@@ -16,20 +15,11 @@ export default function Categories({ data }: { data: ICate[] }) {
     const [isView, setIsView] = useState<boolean>(true);
 
     const width = useResize();
-    // const [width, setWidth] = useState<number>(
-    //     typeof window !== "undefined" ? window.innerWidth : 0
-    // );
-
-    // useEffect(() => {
-    //     const handleResize = () => setWidth(window.innerWidth);
-    //     window.addEventListener("resize", handleResize);
-    //     return () => window.removeEventListener("resize", handleResize);
-    // }, []);
 
     const handleRedirect = useCallback(
         (url: number) => {
             setCurrentType(url);
-            router.push(`${routes.home.url}/${url}${defaultPagination.url}`);
+            router.push(`${routes.home.url}/${url}`);
         },
         [router]
     );

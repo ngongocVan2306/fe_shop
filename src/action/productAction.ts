@@ -3,6 +3,7 @@
 import { IDataGet, IProduct, IRes } from "@/utils/interface";
 import axios from "../helpers/axios";
 import { api } from "@/constants";
+import handleParams from "@/helpers/handleParams";
 
 export const handleAddProductService = async (
     dataBuider: FormData
@@ -24,7 +25,11 @@ export const handleGetProductService = async ({
     type: number;
 }): Promise<IRes<IDataGet<IProduct>>> => {
     return await axios.get(
-        `${api.PRODUCT.DEFAULT}?page=${page}&pageSize=${pageSize}&type=${type}`
+        `${api.PRODUCT.DEFAULT}${handleParams({
+            page: page,
+            pageSize: pageSize,
+            type: type,
+        })}`
     );
 };
 
@@ -39,7 +44,9 @@ export const handleDeleteProductService = async (
 export const handleSearchProduct = async (
     textSearch: string
 ): Promise<IRes<IDataGet<IProduct>>> => {
-    return await axios.get(`${api.PRODUCT.SEARCH}${textSearch}`);
+    return await axios.get(
+        `${api.PRODUCT.SEARCH}${handleParams({ textSearch: textSearch })}`
+    );
 };
 
 export const handleSearchMoreProduct = async ({
@@ -52,12 +59,16 @@ export const handleSearchMoreProduct = async ({
     pageSize: number;
 }): Promise<IRes<IDataGet<IProduct>>> => {
     return await axios.get(
-        `${api.PRODUCT.SEARCH}${textSearch}&page=${page}&pageSize=${pageSize}`
+        `${api.PRODUCT.SEARCH}${handleParams({
+            page: page,
+            pageSize: pageSize,
+            textSearch: textSearch,
+        })}`
     );
 };
 
 export const handleGEtDetailProduct = async (
     id: number
 ): Promise<IRes<IProduct>> => {
-    return await axios.get(`/product/detail/${id}`);
+    return await axios.get(`${api.PRODUCT.DETAIL}/${id}`);
 };

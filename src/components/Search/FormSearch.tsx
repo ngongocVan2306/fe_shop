@@ -12,7 +12,6 @@ import { useResize } from "@/hook/useResize";
 import useClickOutSide from "@/hook/useClickOutSide";
 import Link from "next/link";
 import { routes } from "@/utils/menuRouters";
-import { defaultPagination } from "@/constants";
 import LinkComponent from "../LinkComponent/LinkComponent";
 
 export default function FormSearch() {
@@ -55,11 +54,7 @@ export default function FormSearch() {
                 />
 
                 <Link
-                    href={
-                        routes.search.url +
-                        defaultPagination.url +
-                        `&textSearch=${debounce}`
-                    }
+                    href={routes.search.url + `?textSearch=${debounce}`}
                     className="w-[50%] h-[100%] mt-[10px]"
                 >
                     <button

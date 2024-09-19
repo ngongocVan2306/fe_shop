@@ -4,9 +4,7 @@ import { defaultPagination } from "@/constants";
 
 export const tabsProduct: TabsProps["items"] = [
     {
-        key:
-            routes.manageProduct?.url +
-            `/${defaultPagination.type}${defaultPagination.url}`,
+        key: routes.manageProduct?.url + `/${defaultPagination.type}`,
         label: "Quản lý sản phẩm",
     },
     {

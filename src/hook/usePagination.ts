@@ -1,14 +1,14 @@
 "use client";
 
-import { resStatus } from "@/constants";
+import { defaultPagination, resStatus } from "@/constants";
 import { IDataGet, IMeta, IProduct, IRes } from "@/utils/interface";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const usePagination = ({
     api,
-    pageSize,
-    type = 0,
+    pageSize = defaultPagination.pageSize,
+    type = defaultPagination.type,
     is_reload = false,
 }: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +31,7 @@ const usePagination = ({
 
                 const Res: IRes<IDataGet<IProduct>> = await api({
                     pageSize: pageSize,
-                    page: currentPage,
+                    page: currentPage ? currentPage : defaultPagination.page,
                     type: type,
                     textSearch: textSearch,
                 });
