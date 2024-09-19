@@ -45,4 +45,8 @@ export const routes: IGroupRoute = {
         label: "cart",
         url: "/home/cart",
     },
+    search: {
+        label: "search",
+        url: "/home/search",
+    },
 };

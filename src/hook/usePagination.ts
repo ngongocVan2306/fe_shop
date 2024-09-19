@@ -22,6 +22,7 @@ const usePagination = ({
     const [meta, setMeta] = useState<IMeta | null>(null);
 
     const currentPage = useSearchParams().get("page");
+    const textSearch = useSearchParams().get("textSearch");
 
     useEffect(() => {
         const _fetch = async () => {
@@ -32,6 +33,7 @@ const usePagination = ({
                     pageSize: pageSize,
                     page: currentPage,
                     type: type,
+                    textSearch: textSearch,
                 });
 
                 if (Res.code === resStatus.SUCCESS) {
@@ -45,7 +47,7 @@ const usePagination = ({
         };
         _fetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [api, currentPage, type, is_reload]);
+    }, [api, currentPage, type, is_reload, textSearch]);
 
     return {
         isLoading,

@@ -1,3 +1,4 @@
+import { handleGetProductService } from "@/action/productAction";
 import ManageProduct from "@/components/Product/ManageProduct";
 
 export default async function PageProduct({
@@ -8,7 +9,11 @@ export default async function PageProduct({
     return (
         <div className="w-full flex justify-center">
             <div className="w-[70%]">
-                <ManageProduct isAdmin={false} type={+slug} />
+                <ManageProduct
+                    isAdmin={false}
+                    type={+slug}
+                    api={handleGetProductService}
+                />
             </div>
         </div>
     );

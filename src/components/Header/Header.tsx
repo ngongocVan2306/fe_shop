@@ -15,7 +15,7 @@ import { defaultPagination } from "@/constants";
 import iconCart from "../../../assets/icons/iconCart.svg";
 import iconLogout from "../../../assets/icons/iconLogout.svg";
 import { menuButtonAuth } from "@/utils/menuButtonAuth";
-import PageSearch from "../PageSearch/PageSearch";
+import FormSearch from "../Search/FormSearch";
 
 export default function Header({ data }: { data: ICate[] }) {
     const { isLogin, infoUser } = useAppSelector(
@@ -54,7 +54,7 @@ export default function Header({ data }: { data: ICate[] }) {
             </div>
 
             <div className="sm:w-[35%] w-[20%]">
-                <PageSearch />
+                <FormSearch />
             </div>
 
             <div className="flex justify-center items-center sm:w-[15%] w-[45%]">

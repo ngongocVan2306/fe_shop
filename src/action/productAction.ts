@@ -38,6 +38,26 @@ export const handleDeleteProductService = async (
 
 export const handleSearchProduct = async (
     textSearch: string
-): Promise<IRes<IProduct[]>> => {
-    return axios.get(`${api.PRODUCT.SEARCH}${textSearch}`);
+): Promise<IRes<IDataGet<IProduct>>> => {
+    return await axios.get(`${api.PRODUCT.SEARCH}${textSearch}`);
+};
+
+export const handleSearchMoreProduct = async ({
+    pageSize,
+    page,
+    textSearch,
+}: {
+    textSearch: string;
+    page: number;
+    pageSize: number;
+}): Promise<IRes<IDataGet<IProduct>>> => {
+    return await axios.get(
+        `${api.PRODUCT.SEARCH}${textSearch}&page=${page}&pageSize=${pageSize}`
+    );
+};
+
+export const handleGEtDetailProduct = async (
+    id: number
+): Promise<IRes<IProduct>> => {
+    return await axios.get(`/product/detail/${id}`);
 };
