@@ -1,54 +1,22 @@
 import { SweetAlertIcon } from "sweetalert2";
 
+interface RouterItem {
+    label: string;
+    url: string;
+}
 export interface IGroupRoute {
-    home: {
-        label: string;
-        url: string;
-    };
-    login: {
-        label: string;
-        url: string;
-    };
-    register: {
-        label: string;
-        url: string;
-    };
-    cate: {
-        label: string;
-        url: string;
-    };
-    createCate: {
-        label: string;
-        url: string;
-    };
-    manageCate: {
-        label: string;
-        url: string;
-    };
-    product: {
-        label: string;
-        url: string;
-    };
-    addProduct: {
-        label: string;
-        url: string;
-    };
-    manageProduct: {
-        label: string;
-        url: string;
-    };
-    detail: {
-        label: string;
-        url: string;
-    };
-    cart: {
-        label: string;
-        url: string;
-    };
-    search: {
-        label: string;
-        url: string;
-    };
+    home: RouterItem;
+    login: RouterItem;
+    register: RouterItem;
+    cate: RouterItem;
+    createCate: RouterItem;
+    manageCate: RouterItem;
+    product: RouterItem;
+    addProduct: RouterItem;
+    manageProduct: RouterItem;
+    detail: RouterItem;
+    cart: RouterItem;
+    search: RouterItem;
 }
 
 export interface IRes<T> {
@@ -80,11 +48,6 @@ export interface ICate {
 
 export interface IResLogin {
     user: IUser;
-    // user: Omit<IUser, "password">;
-    // tokens: {
-    //     access_token: string;
-    //     refresh_token: string;
-    // };
 }
 
 export interface ICate {

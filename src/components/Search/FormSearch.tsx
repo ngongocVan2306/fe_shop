@@ -58,7 +58,7 @@ export default function FormSearch() {
                     className="w-[50%] h-[100%] mt-[10px]"
                 >
                     <button
-                        className="sm:w-[20%] w-[50%] h-[80%] mr-[20px] p-[8px] flex justify-center rounded-r-[10px] sm:rounded-l-[0px] rounded-l-[10px] text-[#fff] bg-[var(--color-price)]"
+                        className="sm:w-[20%] w-[100%] h-[80%] mr-[20px] p-[8px] flex justify-center rounded-r-[10px] sm:rounded-l-[0px] rounded-l-[10px] text-[#fff] bg-[var(--color-price)]"
                         onClick={() =>
                             width <= 650 ? setIsView(!isView) : null
                         }
@@ -74,19 +74,19 @@ export default function FormSearch() {
                 </Link>
             </div>
 
-            <div
-                className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[600px] bg-[#ddd] rounded-[5px] shadow "
-                ref={divRef}
-            >
-                {!isEmpty(products) &&
-                    products.map((item: IProduct) => {
+            {!isEmpty(products) && (
+                <div
+                    className="none-scroll-bar sm:w-full w-[90vw] overflow-auto max-h-[60vh] bg-[#fff] rounded-[10px] shadow p-[5px]"
+                    ref={divRef}
+                >
+                    {products.map((item: IProduct) => {
                         return (
                             <LinkComponent
                                 href={routes.detail.url + item.id}
                                 key={item.id}
                             >
                                 <div
-                                    className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[var(--color-price)] hover:text-[#fff]"
+                                    className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[#f4f4f4]"
                                     onClick={() => {
                                         setTextSearch("");
                                     }}
@@ -99,19 +99,27 @@ export default function FormSearch() {
                                             item.imageData[0].img_url
                                         }
                                         alt="image"
+                                        className="rounded-[10px]"
                                     />
 
-                                    <div className="ml-[40px]">
-                                        <h5>{item.name}</h5>
-                                        <h5 className="text-[var(--color-price)] ">
-                                            {handleFomatVnd(item.price)}
+                                    <div className="ml-[40px] flex flex-col justify-center w-[70%]">
+                                        <h5 className="font-[600] truncate w-[100%]">
+                                            {item.name}
+                                        </h5>
+                                        <h5>
+                                            Đơn giá :{" "}
+                                            <span className="text-[var(--color-price)] ">
+                                                {" "}
+                                                {handleFomatVnd(item.price)}
+                                            </span>
                                         </h5>
                                     </div>
                                 </div>
                             </LinkComponent>
                         );
                     })}
-            </div>
+                </div>
+            )}
         </div>
     );
 }

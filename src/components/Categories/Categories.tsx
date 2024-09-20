@@ -30,7 +30,7 @@ export default function Categories({ data }: { data: ICate[] }) {
                 className="sm:hidden h-full ml-[10px]"
                 onClick={() => setIsView(!isView)}
             >
-                <Image width={100} height={100} src={iconMenu} alt="menu" />
+                <Image width={50} height={50} src={iconMenu} alt="menu" />
             </button>
             {isView ? (
                 <ul className="justify-center items-center sm:h-[100%] sm:w-full overflow-x-auto none-scroll-bar sm:flex sm:flex-row flex-col bg-[#fff] sm:shadow-none shadow absolute z-[100] w-[200px]">
@@ -81,7 +81,9 @@ export default function Categories({ data }: { data: ICate[] }) {
                             </li>
                         ))}
                 </ul>
-            ) : null}
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

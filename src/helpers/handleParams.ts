@@ -3,6 +3,7 @@ const handleParams = (params: {
     pageSize?: number;
     textSearch?: string;
     type?: number;
+    userId?: number;
 }): string => {
     let result = "?";
     for (const [key, value] of Object.entries(params)) {

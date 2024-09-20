@@ -9,6 +9,10 @@ export const api = {
         DEFAULT: "/product",
         SEARCH: "/product/search",
         DETAIL: "/product/detail",
+        CART: "/product/cart",
+        COUTCART: "/product/count",
+        ADDCART: "/product/addcart",
+        CHANGECART: "/product/change-cart",
     },
 };
 

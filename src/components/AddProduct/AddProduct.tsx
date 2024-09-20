@@ -107,7 +107,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
     } = useForm();
 
     return (
-        <div className="w-[100%] h-[100%] pt-[20px] font-semibold text-[25px]">
+        <div className="w-[100%] h-[100%] py-[20px] font-semibold text-[25px]">
             <h4 className="text-center">Thêm Sản Phẩm</h4>
 
             <div className="flex sm:flex-row flex-col justify-center sm:px-[50px] mt-[40px]">

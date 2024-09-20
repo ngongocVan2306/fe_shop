@@ -20,7 +20,7 @@ export default async function LayoutHome({
                             <Header data={res.data} />
                         </div>
 
-                        <div className="mt-[var(--height-header)] p-[10px] sm:p-[0px] z-10">
+                        <div className="mt-[var(--height-header)] z-10">
                             {children}
                         </div>
                     </div>

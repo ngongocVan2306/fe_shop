@@ -11,11 +11,15 @@ import { routes } from "@/utils/menuRouters";
 import { logout } from "@/store/feauture/authSlice";
 import { ICate } from "@/utils/interface";
 import { handleLogoutAction } from "@/action/authAction";
-import { defaultPagination } from "@/constants";
+import { defaultPagination, resStatus } from "@/constants";
 import iconCart from "../../../assets/icons/iconCart.svg";
 import iconLogout from "../../../assets/icons/iconLogout.svg";
 import { menuButtonAuth } from "@/utils/menuButtonAuth";
 import FormSearch from "../Search/FormSearch";
+import { useEffect } from "react";
+import { handleCountCartServer } from "@/action/cartAction";
+import { clearCart, startCart } from "@/store/feauture/cartSlice";
+import { useRouter } from "next/navigation";
 
 export default function Header({ data }: { data: ICate[] }) {
     const { isLogin, infoUser } = useAppSelector(
@@ -24,10 +28,24 @@ export default function Header({ data }: { data: ICate[] }) {
     const carts = useAppSelector((state: RootState) => state.cart.count);
 
     const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetch = async () => {
+            const res = await handleCountCartServer(infoUser.id);
+            if (res.code === resStatus.SUCCESS) {
+                dispatch(startCart(res.data));
+            }
+        };
+        fetch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleLogout = async () => {
         handleLogoutAction();
+        dispatch(clearCart());
         dispatch(logout());
+        router.push(routes.home.url);
     };
 
     return (
@@ -53,13 +71,20 @@ export default function Header({ data }: { data: ICate[] }) {
             </div>
 
             <div className="flex justify-center items-center sm:w-[15%] w-[45%]">
-                <button className="relative">
-                    <div className="w-[20px] h-[20px] rounded-[100%] bg-[red] text-[#fff] flex justify-center items-center absolute ml-[10px] mt-[-10px]">
-                        <p>{carts} </p>
-                    </div>
+                <Link href={routes.cart.url + `?userId=${infoUser.id}`}>
+                    <button className="relative">
+                        <div className="w-[20px] h-[20px] rounded-[100%] bg-[red] text-[#fff] flex justify-center items-center absolute ml-[10px] mt-[-10px]">
+                            <p>{carts} </p>
+                        </div>
 
-                    <Image width={30} height={30} src={iconCart} alt="cart" />
-                </button>
+                        <Image
+                            width={30}
+                            height={30}
+                            src={iconCart}
+                            alt="cart"
+                        />
+                    </button>
+                </Link>
 
                 <Link href={routes.manageCate.url}>
                     <button className="border-solid border-[1px] border-[#ccc] p-[8px] rounded-[8px] mx-[10px]">

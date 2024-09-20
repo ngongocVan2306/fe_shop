@@ -1,31 +1,31 @@
 import { IUser } from "@/utils/interface";
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface IAuthSlice {
     isLogin: boolean;
     infoUser: Omit<IUser, "password">;
 }
 
+const initialInfoUser: Omit<IUser, "password"> = {
+    id: 0,
+    email: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    age: "",
+    avatar: "",
+    gender: false,
+    role: "user",
+};
+
 const initialState: IAuthSlice = {
     isLogin: false,
-    infoUser: {
-        id: 0,
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        age: "",
-        avatar: "",
-        gender: false,
-        role: "user",
-    },
+    infoUser: initialInfoUser,
 };
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-
     reducers: {
         loginSuccess: (
             state,
@@ -34,26 +34,12 @@ export const authSlice = createSlice({
             state.isLogin = true;
             state.infoUser = { ...state.infoUser, ...action.payload };
         },
-
         logout: (state) => {
             state.isLogin = false;
-            state.infoUser = {
-                ...state.infoUser,
-                id: 0,
-                email: "",
-                firstName: "",
-                lastName: "",
-                address: "",
-                age: "",
-                avatar: "",
-                gender: false,
-                role: "user",
-            };
+            state.infoUser = { ...initialInfoUser };
         },
     },
 });
 
-// Action creators are generated for each case reducer function
 export const { loginSuccess, logout } = authSlice.actions;
-
 export const authReducer = authSlice.reducer;
