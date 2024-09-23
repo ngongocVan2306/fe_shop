@@ -14,7 +14,6 @@ import { handleAddToCartService } from "@/action/cartAction";
 import { AddCart } from "@/store/feauture/cartSlice";
 import iconCart from "../../../assets/icons/iconCart.svg";
 import Quantity from "../Quantity/Quantity";
-import { HandleApi } from "@/action/handleApi";
 
 export default function DetailProduct({ product }: { product: IProduct }) {
     const [count, setCount] = useState<number>(0);
@@ -52,7 +51,7 @@ export default function DetailProduct({ product }: { product: IProduct }) {
             title: "Bạn có chắc muốn thêm sản phẩm này vào giỏ hàng ?",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await HandleApi(handleAddToCartService, {
+                const res = await handleAddToCartService({
                     id: product.id,
                     count: count,
                 });

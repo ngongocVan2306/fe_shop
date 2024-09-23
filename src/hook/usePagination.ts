@@ -1,6 +1,5 @@
 "use client";
 
-import { HandleApi } from "@/action/handleApi";
 import { defaultPagination, resStatus } from "@/constants";
 import { ICart, IDataGet, IMeta, IProduct, IRes } from "@/utils/interface";
 import { useSearchParams } from "next/navigation";
@@ -11,14 +10,12 @@ const usePagination = ({
     pageSize = defaultPagination.pageSize,
     type = defaultPagination.type,
     is_reload = false,
-    isToken = false,
 }: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     api: any;
     pageSize?: number;
     type?: number;
     is_reload: boolean;
-    isToken?: boolean;
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -34,28 +31,13 @@ const usePagination = ({
             try {
                 setIsLoading(true);
 
-                let Res: IRes<IDataGet<IProduct | ICart>>;
-                if (isToken) {
-                    Res = await HandleApi(api, {
-                        pageSize: pageSize,
-                        page: currentPage
-                            ? currentPage
-                            : defaultPagination.page,
-                        type: type,
-                        textSearch: textSearch,
-                        userId: userId,
-                    });
-                } else {
-                    Res = await api({
-                        pageSize: pageSize,
-                        page: currentPage
-                            ? currentPage
-                            : defaultPagination.page,
-                        type: type,
-                        textSearch: textSearch,
-                        userId: userId,
-                    });
-                }
+                const Res: IRes<IDataGet<IProduct | ICart>> = await api({
+                    pageSize: pageSize,
+                    page: currentPage ? currentPage : defaultPagination.page,
+                    type: type,
+                    textSearch: textSearch,
+                    userId: userId,
+                });
 
                 if (Res.code === resStatus.SUCCESS) {
                     if (userId) {

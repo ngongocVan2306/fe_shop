@@ -3,7 +3,6 @@ import iconMinus from "../../../assets/icons/iconMinus.svg";
 import iconPlus from "../../../assets/icons/iconPlus.svg";
 import { resStatus } from "@/constants";
 import { handleChangeCountCart } from "@/action/cartAction";
-import { HandleApi } from "@/action/handleApi";
 
 const Quantity = ({
     inventory,
@@ -21,7 +20,7 @@ const Quantity = ({
     handleReload?: () => void;
 }) => {
     const handleAction = async (count: number) => {
-        const res = await HandleApi(handleChangeCountCart, {
+        const res = await handleChangeCountCart({
             id: id,
             count: count,
         });
