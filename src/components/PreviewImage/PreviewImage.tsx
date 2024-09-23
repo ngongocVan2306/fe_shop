@@ -19,9 +19,14 @@ export default function PreviewImage({
 
     useEffect(() => {
         if (!isEmpty(data)) {
-            const arrLinkImage = data.map((item: any) => {
-                if (isFile) return URL.createObjectURL(item);
-                return process.env.NEXT_PUBLIC_BASE_IMAGE + item;
+            const arrLinkImage = data.map((item: File | string) => {
+                if (isFile && item instanceof File) {
+                    return URL.createObjectURL(item);
+                }
+                if (typeof item === "string") {
+                    return process.env.NEXT_PUBLIC_BASE_IMAGE + item;
+                }
+                return "";
             });
 
             setDataListImages(arrLinkImage);
