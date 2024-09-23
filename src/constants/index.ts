@@ -4,6 +4,7 @@ export const api = {
     REGISTER: "/user/register",
     LOGIN: "/user/login",
     LOGOUT: "/user/logout",
+    REFRESHTOKEN: "/user/refresh",
     CATE: "/cate",
     PRODUCT: {
         DEFAULT: "/product",
@@ -18,6 +19,7 @@ export const api = {
 
 export const resStatus = {
     SUCCESS: 200,
+    UNAUTHORIZED: 401,
 };
 
 export const toastStatus: IStatusToast = {
@@ -39,4 +41,9 @@ export const defaultPagination = {
     pageSize: 10,
     type: 0,
     userId: 0,
+};
+
+export const maxAge = {
+    maxAgeAccess: 10,
+    maxAgeRefresh: 12 * 30 * 24 * 60 * 60 * 1000,
 };

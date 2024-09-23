@@ -32,7 +32,8 @@ export default function Header({ data }: { data: ICate[] }) {
 
     useEffect(() => {
         const fetch = async () => {
-            const res = await handleCountCartServer(infoUser.id);
+            const res = await handleCountCartServer();
+
             if (res.code === resStatus.SUCCESS) {
                 dispatch(startCart(res.data));
             }

@@ -34,6 +34,7 @@ export default function Cart() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await handleDeleteCartService(cart.id);
+
                 if (res.code === resStatus.SUCCESS) {
                     setReload(!reload);
                     dispatch(DeleteCart());

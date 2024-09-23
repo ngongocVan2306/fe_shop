@@ -8,25 +8,20 @@ import handleParams from "@/helpers/handleParams";
 export const handleGetCartService = async ({
     page,
     pageSize,
-    userId,
 }: {
     page: number;
     pageSize: number;
-    userId: number;
 }): Promise<IRes<IDataGet<ICart>>> => {
     return await axios.get(
         `${api.PRODUCT.CART}${handleParams({
             page: page,
             pageSize: pageSize,
-            userId: userId,
         })}`
     );
 };
 
-export const handleCountCartServer = async (
-    id: number
-): Promise<IRes<number>> => {
-    return await axios.get(`${api.PRODUCT.COUTCART}/${id}`);
+export const handleCountCartServer = async (): Promise<IRes<number>> => {
+    return await axios.get(`${api.PRODUCT.COUTCART}`);
 };
 
 export const handleDeleteCartService = async (
@@ -38,19 +33,22 @@ export const handleDeleteCartService = async (
 export const handleAddToCartService = async ({
     id,
     count,
-    userId,
 }: {
     id: number;
     count: number;
-    userId: number;
 }): Promise<IRes<null>> => {
-    return await axios.post(
-        `${api.PRODUCT.ADDCART}`,
-        {
-            user_id: userId,
-            product_id: id,
-            count: count,
-        },
-        { withCredentials: true }
-    );
+    return await axios.post(`${api.PRODUCT.ADDCART}`, {
+        product_id: id,
+        count: count,
+    });
+};
+
+interface IDataChange {
+    id: number;
+    count: number;
+}
+export const handleChangeCountCart = async (
+    data: IDataChange
+): Promise<IRes<null>> => {
+    return await axios.put(`${api.PRODUCT.CHANGECART}`, data);
 };

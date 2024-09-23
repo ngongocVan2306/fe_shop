@@ -1,8 +1,8 @@
 import Image from "next/image";
 import iconMinus from "../../../assets/icons/iconMinus.svg";
 import iconPlus from "../../../assets/icons/iconPlus.svg";
-import { handleChangeCountCart } from "@/action/productAction";
 import { resStatus } from "@/constants";
+import { handleChangeCountCart } from "@/action/cartAction";
 
 const Quantity = ({
     inventory,
@@ -20,7 +20,10 @@ const Quantity = ({
     handleReload?: () => void;
 }) => {
     const handleAction = async (count: number) => {
-        const res = await handleChangeCountCart({ id: id, count: count });
+        const res = await handleChangeCountCart({
+            id: id,
+            count: count,
+        });
 
         if (res.code === resStatus.SUCCESS) {
             handleReload?.();

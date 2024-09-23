@@ -48,6 +48,10 @@ export interface ICate {
 
 export interface IResLogin {
     user: IUser;
+    tokens: {
+        access_token: string;
+        refresh_token: string;
+    };
 }
 
 export interface ICate {

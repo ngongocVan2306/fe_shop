@@ -12,7 +12,6 @@ import Swal from "sweetalert2";
 import { resStatus, toastStatus } from "@/constants";
 import { handleAddToCartService } from "@/action/cartAction";
 import { AddCart } from "@/store/feauture/cartSlice";
-
 import iconCart from "../../../assets/icons/iconCart.svg";
 import Quantity from "../Quantity/Quantity";
 
@@ -20,9 +19,7 @@ export default function DetailProduct({ product }: { product: IProduct }) {
     const [count, setCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { isLogin, infoUser } = useAppSelector(
-        (state: RootState) => state.auth
-    );
+    const isLogin = useAppSelector((state: RootState) => state.auth.isLogin);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -57,7 +54,6 @@ export default function DetailProduct({ product }: { product: IProduct }) {
                 const res = await handleAddToCartService({
                     id: product.id,
                     count: count,
-                    userId: infoUser.id,
                 });
 
                 Swal.fire({
