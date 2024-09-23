@@ -1,16 +1,30 @@
 "use client";
 
-import { handleDeleteCateAction } from "@/action/cateAction";
+import {
+    handleDeleteCateAction,
+    handleGetCateAction,
+} from "@/action/cateAction";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isEmpty } from "@/utils/isEmpty";
 import Image from "next/image";
 import iconTrash from "../../../assets/icons/iconTrash.svg";
 
-export default function ManageCate({ data }: { data: ICate[] }) {
-    const [cates, setCates] = useState<ICate[]>(data);
+export default function ManageCate() {
+    const [cates, setCates] = useState<ICate[]>([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const res = await handleGetCateAction();
+            if (res.code === resStatus.SUCCESS) {
+                setCates(res.data);
+            }
+        };
+
+        fetch();
+    }, []);
 
     const handleDeleteCate = (data: ICate) => {
         Swal.fire({

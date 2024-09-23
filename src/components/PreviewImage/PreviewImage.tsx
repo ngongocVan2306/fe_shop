@@ -2,9 +2,9 @@
 
 import { isEmpty } from "@/utils/isEmpty";
 import { Image } from "antd";
-
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
+import imageDefault from "../../../public/imageDefault.png";
 
 export default function PreviewImage({
     data,
@@ -19,10 +19,8 @@ export default function PreviewImage({
 
     useEffect(() => {
         if (!isEmpty(data)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const arrLinkImage = data.map((item: any) => {
                 if (isFile) return URL.createObjectURL(item);
-
                 return process.env.NEXT_PUBLIC_BASE_IMAGE + item;
             });
 
@@ -42,6 +40,10 @@ export default function PreviewImage({
                         alt="img"
                         className="w-[50px] h-[50px] object-cover flex-shrink-0 block rounded-[50%] shadow-sm border-[1px] border-solid border-[#ccc]"
                         src={dataListImages[i]}
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                                imageDefault.src;
+                        }}
                     />
                 </a>
             );
@@ -73,14 +75,18 @@ export default function PreviewImage({
                             },
                         }}
                     >
-                        <Image src={linkPreview} alt="img" className="hidden" />
+                        <Image
+                            src={linkPreview}
+                            alt="img"
+                            className="hidden"
+                            onError={(e) => {
+                                setLinkPreview(imageDefault.src);
+                            }}
+                        />
                     </Image.PreviewGroup>
                 )}
             </div>
-            <Slider
-                {...settings}
-                // defaultChecked={1}
-            >
+            <Slider {...settings}>
                 {!isEmpty(dataListImages) &&
                     dataListImages.map((item, index) => (
                         <div key={index} className="w-[100px] h-[100px]">
@@ -94,6 +100,10 @@ export default function PreviewImage({
                                 key={index}
                                 className="w-[100%] object-cover h-[50px] rounded-[6px] border-[1px] border-solid border-[#ccc]"
                                 src={item}
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).src =
+                                        imageDefault.src;
+                                }}
                             />
                         </div>
                     ))}
