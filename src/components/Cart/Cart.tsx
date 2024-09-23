@@ -17,6 +17,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import PaginationCustom from "../PaginationCustom/PaginationCustom";
 import Quantity from "../Quantity/Quantity";
+import { HandleApi } from "@/action/handleApi";
 
 export default function Cart() {
     const [reload, setReload] = useState<boolean>(false);
@@ -24,6 +25,7 @@ export default function Cart() {
     const { isLoading, carts, meta } = usePagination({
         api: handleGetCartService,
         is_reload: reload,
+        isToken: true,
     });
     const dispatch = useAppDispatch();
 
@@ -33,7 +35,7 @@ export default function Cart() {
             title: `Bạn có chác muốn xóa đoan hàng ${cart.productData.name} ?`,
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await handleDeleteCartService(cart.id);
+                const res = await HandleApi(handleDeleteCartService, cart.id);
                 if (res.code === resStatus.SUCCESS) {
                     setReload(!reload);
                     dispatch(DeleteCart());

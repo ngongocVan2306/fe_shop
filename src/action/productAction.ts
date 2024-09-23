@@ -72,13 +72,3 @@ export const handleGEtDetailProduct = async (
 ): Promise<IRes<IProduct>> => {
     return await axios.get(`${api.PRODUCT.DETAIL}/${id}`);
 };
-
-interface IDataChange {
-    id: number;
-    count: number;
-}
-export const handleChangeCountCart = async (
-    data: IDataChange
-): Promise<IRes<null>> => {
-    return await axios.put(`${api.PRODUCT.CHANGECART}`, data);
-};

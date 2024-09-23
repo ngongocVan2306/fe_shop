@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { handleCountCartServer } from "@/action/cartAction";
 import { clearCart, startCart } from "@/store/feauture/cartSlice";
 import { useRouter } from "next/navigation";
+import { HandleApi } from "@/action/handleApi";
 
 export default function Header({ data }: { data: ICate[] }) {
     const { isLogin, infoUser } = useAppSelector(
@@ -32,7 +33,7 @@ export default function Header({ data }: { data: ICate[] }) {
 
     useEffect(() => {
         const fetch = async () => {
-            const res = await handleCountCartServer(infoUser.id);
+            const res = await HandleApi(handleCountCartServer);
             if (res.code === resStatus.SUCCESS) {
                 dispatch(startCart(res.data));
             }

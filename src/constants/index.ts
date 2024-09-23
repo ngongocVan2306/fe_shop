@@ -4,6 +4,7 @@ export const api = {
     REGISTER: "/user/register",
     LOGIN: "/user/login",
     LOGOUT: "/user/logout",
+    REFRESHTOKEN: "/user/refresh",
     CATE: "/cate",
     PRODUCT: {
         DEFAULT: "/product",
@@ -18,6 +19,7 @@ export const api = {
 
 export const resStatus = {
     SUCCESS: 200,
+    UNAUTHORIZED: 401,
 };
 
 export const toastStatus: IStatusToast = {

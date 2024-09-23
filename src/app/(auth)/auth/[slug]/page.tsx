@@ -43,10 +43,12 @@ const PageRegister = ({ params: { slug } }: { params: { slug: string } }) => {
             const dataBuider: Partial<IUser> = {
                 ...data,
             };
+
             const res =
                 slug === routes.register.label
                     ? await handleRegisterAction(dataBuider)
                     : await handleLoginAction(dataBuider);
+
             Swal.fire({
                 icon:
                     res.code === resStatus.SUCCESS
