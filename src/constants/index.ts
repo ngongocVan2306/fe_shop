@@ -42,3 +42,8 @@ export const defaultPagination = {
     type: 0,
     userId: 0,
 };
+
+export const maxAge = {
+    maxAgeAccess: 10,
+    maxAgeRefresh: 12 * 30 * 24 * 60 * 60 * 1000,
+};
