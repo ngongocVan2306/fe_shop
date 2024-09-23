@@ -79,7 +79,7 @@ export default function PreviewImage({
                             src={linkPreview}
                             alt="img"
                             className="hidden"
-                            onError={(e) => {
+                            onError={() => {
                                 setLinkPreview(imageDefault.src);
                             }}
                         />
