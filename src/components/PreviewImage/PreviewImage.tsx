@@ -5,6 +5,7 @@ import { Image } from "antd";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import imageDefault from "../../../public/imageDefault.png";
+import ImageAntdCustom from "../ImageCustom/ImageAntdCustom";
 
 export default function PreviewImage({
     data,
@@ -41,13 +42,10 @@ export default function PreviewImage({
         customPaging: function (i: number) {
             return (
                 <a>
-                    <Image
-                        alt="img"
-                        className="w-[50px] h-[50px] object-cover flex-shrink-0 block rounded-[50%] shadow-sm border-[1px] border-solid border-[#ccc]"
-                        src={dataListImages[i]}
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).src =
-                                imageDefault.src;
+                    <ImageAntdCustom
+                        imageSrc={dataListImages[i]}
+                        handleError={() => {
+                            dataListImages[i] = imageDefault.src;
                         }}
                     />
                 </a>
@@ -80,11 +78,10 @@ export default function PreviewImage({
                             },
                         }}
                     >
-                        <Image
-                            src={linkPreview}
-                            alt="img"
-                            className="hidden"
-                            onError={() => {
+                        <ImageAntdCustom
+                            imageSrc={linkPreview}
+                            isTarget={true}
+                            handleError={() => {
                                 setLinkPreview(imageDefault.src);
                             }}
                         />
@@ -95,20 +92,12 @@ export default function PreviewImage({
                 {!isEmpty(dataListImages) &&
                     dataListImages.map((item, index) => (
                         <div key={index} className="w-[100px] h-[100px]">
-                            <Image
-                                onClick={() => {
-                                    handleClickPreviewImage(item);
-                                }}
-                                sizes="1"
-                                alt="image"
-                                preview={false}
-                                key={index}
-                                className="w-[100%] object-cover h-[50px] rounded-[6px] border-[1px] border-solid border-[#ccc]"
-                                src={item}
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).src =
-                                        imageDefault.src;
-                                }}
+                            <ImageAntdCustom
+                                imageSrc={item}
+                                isPreview={true}
+                                handleClickPreviewImage={() =>
+                                    handleClickPreviewImage(item)
+                                }
                             />
                         </div>
                     ))}

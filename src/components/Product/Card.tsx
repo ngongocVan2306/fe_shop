@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { IProduct } from "@/utils/interface";
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import Swal from "sweetalert2";
@@ -9,7 +8,7 @@ import { handleDeleteProductService } from "@/action/productAction";
 import LinkComponent from "../LinkComponent/LinkComponent";
 import { routes } from "@/utils/menuRouters";
 import { useState } from "react";
-import imageDefault from "../../../public/imageDefault.png";
+import ImageCustom from "../ImageCustom/ImageCustom";
 
 const Card = ({
     products,
@@ -41,7 +40,6 @@ const Card = ({
                 try {
                     const res = await handleDeleteProductService(product.id);
                     if (res.code === resStatus.SUCCESS) {
-                        // setReload(!reload);
                         handleReload();
                     }
                     Swal.fire({
@@ -68,14 +66,7 @@ const Card = ({
                 key={products.id}
             >
                 <div className="w-full h-[200px] overflow-hidden">
-                    <Image
-                        width={100}
-                        height={100}
-                        className="w-full object-contain rounded-[10px]"
-                        src={imageSrc}
-                        alt="image"
-                        onError={() => setImageSrc(imageDefault.src)}
-                    />
+                    <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
                 </div>
 
                 <div className="p-[10px]">

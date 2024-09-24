@@ -7,7 +7,6 @@ import { Empty } from "antd";
 import usePagination from "@/hook/usePagination";
 import { useState } from "react";
 import PaginationCustom from "../PaginationCustom/PaginationCustom";
-
 import Card from "./Card";
 
 export default function ManageProduct({

@@ -7,24 +7,13 @@ import {
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
 import { isEmpty } from "@/utils/isEmpty";
 import Image from "next/image";
 import iconTrash from "../../../assets/icons/iconTrash.svg";
+import useGetAllData from "@/hook/useGetAllData";
 
 export default function ManageCate() {
-    const [cates, setCates] = useState<ICate[]>([]);
-
-    useEffect(() => {
-        const fetch = async () => {
-            const res = await handleGetCateAction();
-            if (res.code === resStatus.SUCCESS) {
-                setCates(res.data);
-            }
-        };
-
-        fetch();
-    }, []);
+    const { data, handleReload } = useGetAllData({ api: handleGetCateAction });
 
     const handleDeleteCate = (data: ICate) => {
         Swal.fire({
@@ -46,7 +35,7 @@ export default function ManageCate() {
                     });
 
                     if (res.code === resStatus.SUCCESS) {
-                        setCates(cates.filter((item) => item.id !== data.id));
+                        handleReload();
                     }
                 } catch (err) {
                     console.log(err);
@@ -64,8 +53,8 @@ export default function ManageCate() {
                 Quản lí danh mục
             </h4>
             <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 w-full">
-                {!isEmpty(cates) &&
-                    cates.map((item: ICate) => {
+                {!isEmpty(data) &&
+                    data.map((item: ICate) => {
                         return (
                             <div
                                 className="border-solid border-[1px] border-[#ccc] rounded-[10px] p-[20px] shadow flex justify-between"

@@ -1,7 +1,6 @@
 "use client";
 
 import { ICart } from "@/utils/interface";
-import Image from "next/image";
 import Quantity from "../Quantity/Quantity";
 import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import Swal from "sweetalert2";
@@ -10,7 +9,7 @@ import { handleDeleteCartService } from "@/action/cartAction";
 import { DeleteCart } from "@/store/feauture/cartSlice";
 import { useAppDispatch } from "@/store/store";
 import { useState } from "react";
-import imageDefault from "../../../public/imageDefault.png";
+import ImageCustom from "../ImageCustom/ImageCustom";
 
 const CartItem = ({
     cart,
@@ -54,14 +53,7 @@ const CartItem = ({
     return (
         <div className="sm:flex sm:justify-center w-full border-solid border-b-[1px] border-[#ccc] py-[20px] grid grid-cols-2 gap-4">
             <div className="sm:w-[10%]">
-                <Image
-                    width={100}
-                    height={100}
-                    src={imageSrc}
-                    alt="thumbnail"
-                    onError={() => setImageSrc(imageDefault.src)}
-                    className="w-[100%] rounded-[5px] shadow"
-                />
+                <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
             </div>
 
             <div className="w-[70%] ml-[20px] border-solid sm:border-r-[1px] border-[#ccc]">
