@@ -2,9 +2,10 @@
 
 import { isEmpty } from "@/utils/isEmpty";
 import { Image } from "antd";
-
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
+import imageDefault from "../../../public/imageDefault.png";
+import ImageAntdCustom from "../ImageCustom/ImageAntdCustom";
 
 export default function PreviewImage({
     data,
@@ -19,11 +20,14 @@ export default function PreviewImage({
 
     useEffect(() => {
         if (!isEmpty(data)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const arrLinkImage = data.map((item: any) => {
-                if (isFile) return URL.createObjectURL(item);
-
-                return process.env.NEXT_PUBLIC_BASE_IMAGE + item;
+            const arrLinkImage = data.map((item: File | string) => {
+                if (isFile && item instanceof File) {
+                    return URL.createObjectURL(item);
+                }
+                if (typeof item === "string") {
+                    return process.env.NEXT_PUBLIC_BASE_IMAGE + item;
+                }
+                return "";
             });
 
             setDataListImages(arrLinkImage);
@@ -38,10 +42,11 @@ export default function PreviewImage({
         customPaging: function (i: number) {
             return (
                 <a>
-                    <Image
-                        alt="img"
-                        className="w-[50px] h-[50px] object-cover flex-shrink-0 block rounded-[50%] shadow-sm border-[1px] border-solid border-[#ccc]"
-                        src={dataListImages[i]}
+                    <ImageAntdCustom
+                        imageSrc={dataListImages[i]}
+                        handleError={() => {
+                            dataListImages[i] = imageDefault.src;
+                        }}
                     />
                 </a>
             );
@@ -73,27 +78,26 @@ export default function PreviewImage({
                             },
                         }}
                     >
-                        <Image src={linkPreview} alt="img" className="hidden" />
+                        <ImageAntdCustom
+                            imageSrc={linkPreview}
+                            isTarget={true}
+                            handleError={() => {
+                                setLinkPreview(imageDefault.src);
+                            }}
+                        />
                     </Image.PreviewGroup>
                 )}
             </div>
-            <Slider
-                {...settings}
-                // defaultChecked={1}
-            >
+            <Slider {...settings}>
                 {!isEmpty(dataListImages) &&
                     dataListImages.map((item, index) => (
                         <div key={index} className="w-[100px] h-[100px]">
-                            <Image
-                                onClick={() => {
-                                    handleClickPreviewImage(item);
-                                }}
-                                sizes="1"
-                                alt="image"
-                                preview={false}
-                                key={index}
-                                className="w-[100%] object-cover h-[50px] rounded-[6px] border-[1px] border-solid border-[#ccc]"
-                                src={item}
+                            <ImageAntdCustom
+                                imageSrc={item}
+                                isPreview={true}
+                                handleClickPreviewImage={() =>
+                                    handleClickPreviewImage(item)
+                                }
                             />
                         </div>
                     ))}

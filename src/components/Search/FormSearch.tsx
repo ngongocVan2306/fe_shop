@@ -1,7 +1,6 @@
 "use client";
 
 import { handleSearchProduct } from "@/action/productAction";
-import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import { useDebounce } from "@/hook/useDebound";
 import { IProduct } from "@/utils/interface";
 import Image from "next/image";
@@ -13,6 +12,7 @@ import useClickOutSide from "@/hook/useClickOutSide";
 import Link from "next/link";
 import { routes } from "@/utils/menuRouters";
 import LinkComponent from "../LinkComponent/LinkComponent";
+import ItemSearch from "./ItemSearch";
 
 export default function FormSearch() {
     const [textSearch, setTextSearch] = useState<string>("");
@@ -24,7 +24,7 @@ export default function FormSearch() {
     const divRef = useRef<HTMLDivElement>(null);
 
     const debounce = useDebounce(textSearch, 700);
-    useClickOutSide(divRef, () => setTextSearch(""));
+    useClickOutSide(divRef, () => setProducts([]));
 
     useEffect(() => {
         if (debounce) {
@@ -85,36 +85,10 @@ export default function FormSearch() {
                                 href={routes.detail.url + item.id}
                                 key={item.id}
                             >
-                                <div
-                                    className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[#f4f4f4]"
-                                    onClick={() => {
-                                        setTextSearch("");
-                                    }}
-                                >
-                                    <Image
-                                        width={80}
-                                        height={80}
-                                        src={
-                                            process.env.NEXT_PUBLIC_BASE_IMAGE +
-                                            item.imageData[0].img_url
-                                        }
-                                        alt="image"
-                                        className="rounded-[10px]"
-                                    />
-
-                                    <div className="ml-[40px] flex flex-col justify-center w-[70%]">
-                                        <h5 className="font-[600] truncate w-[100%]">
-                                            {item.name}
-                                        </h5>
-                                        <h5>
-                                            Đơn giá :{" "}
-                                            <span className="text-[var(--color-price)] ">
-                                                {" "}
-                                                {handleFomatVnd(item.price)}
-                                            </span>
-                                        </h5>
-                                    </div>
-                                </div>
+                                <ItemSearch
+                                    product={item}
+                                    handleChooseItem={() => setProducts([])}
+                                />
                             </LinkComponent>
                         );
                     })}

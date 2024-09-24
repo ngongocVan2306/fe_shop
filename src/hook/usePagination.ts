@@ -1,7 +1,14 @@
 "use client";
 
 import { defaultPagination, resStatus } from "@/constants";
-import { ICart, IDataGet, IMeta, IProduct, IRes } from "@/utils/interface";
+import {
+    ICart,
+    ICate,
+    IDataGet,
+    IMeta,
+    IProduct,
+    IRes,
+} from "@/utils/interface";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -31,13 +38,17 @@ const usePagination = ({
             try {
                 setIsLoading(true);
 
-                const Res: IRes<IDataGet<IProduct | ICart>> = await api({
-                    pageSize: pageSize,
-                    page: currentPage ? currentPage : defaultPagination.page,
-                    type: type,
-                    textSearch: textSearch,
-                    userId: userId,
-                });
+                const Res: IRes<IDataGet<IProduct | ICart | ICate>> = await api(
+                    {
+                        pageSize: pageSize,
+                        page: currentPage
+                            ? currentPage
+                            : defaultPagination.page,
+                        type: type,
+                        textSearch: textSearch,
+                        userId: userId,
+                    }
+                );
 
                 if (Res.code === resStatus.SUCCESS) {
                     if (userId) {
@@ -45,6 +56,7 @@ const usePagination = ({
                     } else {
                         setProducts(Res.data.items as IProduct[]);
                     }
+
                     setMeta(Res.data.meta);
                 }
             } catch (error) {
