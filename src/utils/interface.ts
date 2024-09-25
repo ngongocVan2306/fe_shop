@@ -99,7 +99,14 @@ export interface ICart {
     productData: IProduct;
 }
 
-export type TInput = "email" | "password" | "phone" | "text" | "number" | "";
+export type TInput =
+    | "email"
+    | "password"
+    | "phone"
+    | "text"
+    | "number"
+    | "submit"
+    | "";
 
 export interface IMenuRegister {
     email: string;
@@ -127,3 +134,5 @@ export interface ISearchParams {
     page: string;
     pageSize: string;
 }
+
+export type TStyoeFlex = "center" | "start" | "end" | "space-between";

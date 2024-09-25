@@ -9,6 +9,7 @@ import { Empty } from "antd";
 import { useState } from "react";
 import PaginationCustom from "../PaginationCustom/PaginationCustom";
 import CartItem from "./CartItem";
+import { DivFlex, DivStyled } from "@/styledComponent/Div";
 
 const Cart = () => {
     const [reload, setReload] = useState<boolean>(false);
@@ -19,9 +20,16 @@ const Cart = () => {
     });
 
     return (
-        <div className="w-full h-[100vh] p-[20px] bg-[#f4f4f4]">
-            <div className="w-full flex justify-center max-h-[80vh] overflow-auto none-scroll-bar bg-[#fff] shadow rounded-[10px]">
-                <div className="w-full  p-[20px] ">
+        <DivStyled height="100vh" padding="20px" background="#f4f4f4">
+            <DivFlex
+                maxHeight="80vh"
+                overflow="auto"
+                background="#fff"
+                isShadow
+                rounded="10px"
+                align="start"
+            >
+                <DivStyled padding="20px">
                     {!isEmpty(carts) ? (
                         carts.map((item: ICart) => {
                             return (
@@ -36,13 +44,13 @@ const Cart = () => {
                     ) : (
                         <Empty />
                     )}
-                </div>
-            </div>
+                </DivStyled>
+            </DivFlex>
 
-            <div className="w-full flex justify-center my-[40px]">
+            <DivFlex marginTop="40px" background="#f4f4f4">
                 <PaginationCustom total={meta?.totalIteams} />
-            </div>
-        </div>
+            </DivFlex>
+        </DivStyled>
     );
 };
 

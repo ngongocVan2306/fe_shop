@@ -8,6 +8,7 @@ import usePagination from "@/hook/usePagination";
 import { useState } from "react";
 import PaginationCustom from "../PaginationCustom/PaginationCustom";
 import Card from "./Card";
+import { DivFlex, DivGrid, DivStyled } from "@/styledComponent/Div";
 
 export default function ManageProduct({
     isAdmin,
@@ -29,34 +30,32 @@ export default function ManageProduct({
     });
 
     return (
-        <div className="w-full h-full sm:p-[20px]">
-            <div className="">
-                {!isEmpty(products) ? (
-                    <div className="grid sm:grid-cols-5 grid-cols-2 gap-4">
-                        {products.map((item: IProduct) => {
-                            return (
-                                <Card
-                                    handleReload={() => setReload(!reload)}
-                                    isAdmin={isAdmin}
-                                    products={item}
-                                    isLoading={isLoading}
-                                    key={item.id}
-                                />
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <div className="w-full flex justify-center">
-                        <Empty />
-                    </div>
-                )}
-            </div>
+        <DivStyled padding="20px">
+            {!isEmpty(products) ? (
+                <DivGrid columns={5} gap="10px">
+                    {products.map((item: IProduct) => {
+                        return (
+                            <Card
+                                handleReload={() => setReload(!reload)}
+                                isAdmin={isAdmin}
+                                products={item}
+                                isLoading={isLoading}
+                                key={item.id}
+                            />
+                        );
+                    })}
+                </DivGrid>
+            ) : (
+                <DivFlex>
+                    <Empty />
+                </DivFlex>
+            )}
 
             {meta && meta.totalIteams > 0 && (
-                <div className="w-full flex justify-center my-[40px]">
+                <DivFlex marginTop="40px">
                     <PaginationCustom total={meta?.totalIteams} />
-                </div>
+                </DivFlex>
             )}
-        </div>
+        </DivStyled>
     );
 }

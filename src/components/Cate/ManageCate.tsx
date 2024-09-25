@@ -11,6 +11,9 @@ import { isEmpty } from "@/utils/isEmpty";
 import Image from "next/image";
 import iconTrash from "../../../assets/icons/iconTrash.svg";
 import useGetAllData from "@/hook/useGetAllData";
+import { DivFlex, DivGrid, DivStyled } from "@/styledComponent/Div";
+import { TextStyled } from "@/styledComponent/TextStyled";
+import { ButtonStyled } from "@/styledComponent/ButtonStyled";
 
 export default function ManageCate() {
     const { data, handleReload } = useGetAllData({ api: handleGetCateAction });
@@ -48,22 +51,29 @@ export default function ManageCate() {
         });
     };
     return (
-        <div className="w-full h-full p-[20px]">
-            <h4 className="text-[20px] font-semibold text-center mb-[20px]">
+        <DivStyled padding="20px">
+            <TextStyled size="20px" weight={500}>
+                {" "}
                 Quản lí danh mục
-            </h4>
-            <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 w-full">
+            </TextStyled>
+
+            <DivGrid columns={4} marginTop="20px">
                 {!isEmpty(data) &&
                     data.map((item: ICate) => {
                         return (
-                            <div
-                                className="border-solid border-[1px] border-[#ccc] rounded-[10px] p-[20px] shadow flex justify-between"
+                            <DivFlex
+                                colorBorder="#ccc"
+                                padding="20px"
+                                justyfy="space-between"
                                 key={item.id}
+                                rounded="10px"
+                                isShadow
                             >
-                                <p className="text-center">{item.name}</p>
-
-                                <button
-                                    className="bg-[red] px-[16px] py-[4px] rounded-[10px] hover:opacity-[0.6]"
+                                <TextStyled>{item.name}</TextStyled>
+                                <ButtonStyled
+                                    background="red"
+                                    padding="8px"
+                                    color="#fff"
                                     onClick={() => handleDeleteCate(item)}
                                 >
                                     <Image
@@ -72,11 +82,11 @@ export default function ManageCate() {
                                         src={iconTrash}
                                         alt="trash"
                                     />
-                                </button>
-                            </div>
+                                </ButtonStyled>
+                            </DivFlex>
                         );
                     })}
-            </div>
-        </div>
+            </DivGrid>
+        </DivStyled>
     );
 }

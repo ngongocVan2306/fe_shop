@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 export const handleRegisterAction = async (
     dataBuider: Partial<IUser>
 ): Promise<IRes<IResLogin>> => {
+    console.log("register", dataBuider);
     return await axios.post(api.REGISTER, dataBuider, {
         withCredentials: true,
     });

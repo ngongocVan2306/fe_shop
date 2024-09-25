@@ -1,3 +1,5 @@
+import { InputStyled } from "@/styledComponent/InputStyled";
+import { TextStyled } from "@/styledComponent/TextStyled";
 import { TInput } from "@/utils/interface";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
@@ -7,7 +9,6 @@ const InputComponent = ({
     register,
     rules,
     errors,
-    isAuth,
 }: {
     name: string;
     type: TInput;
@@ -15,23 +16,14 @@ const InputComponent = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rules?: any;
     errors?: FieldErrors<FieldValues>;
-    isAuth?: boolean;
 }) => {
     return (
         <div className="w-full">
-            <input
-                type={type}
-                {...register(name, rules)}
-                className={`w-[100%]  border-solid ${
-                    isAuth
-                        ? "border-b-[1px]"
-                        : "border-[1px] rounded-[10px] shadow"
-                }   border-b-[#ccc] p-[10px] focus:rounded-[10px] outline-none`}
-            />
+            <InputStyled type={type} {...register(name, rules)} />
             {errors && errors[name] && (
-                <p className="text-red-500 font-normal text-[16px]">
+                <TextStyled color="red" weight={400}>
                     {(errors?.[name]?.message as string) || "Error"}
-                </p>
+                </TextStyled>
             )}
         </div>
     );

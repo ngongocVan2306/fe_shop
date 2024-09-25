@@ -9,6 +9,9 @@ import LinkComponent from "../LinkComponent/LinkComponent";
 import { routes } from "@/utils/menuRouters";
 import { useState } from "react";
 import ImageCustom from "../ImageCustom/ImageCustom";
+import { DivStyled } from "@/styledComponent/Div";
+import { TextStyled, TextTruncate } from "@/styledComponent/TextStyled";
+import { ButtonStyled } from "@/styledComponent/ButtonStyled";
 
 const Card = ({
     products,
@@ -61,30 +64,41 @@ const Card = ({
     };
     return (
         <LinkComponent key={products.id} href={routes.detail.url + products.id}>
-            <div
-                className="border-solid border-[1px] border-[#ccc] rounded-[10px] shadow hover:cursor-pointer hover:opacity-[0.6]"
-                key={products.id}
+            <DivStyled
+                width="240px"
+                colorBorder="#ddd"
+                isShadow
+                overflow="hidden"
+                rounded="10px"
             >
-                <div className="w-full h-[200px] overflow-hidden">
+                <DivStyled height="200px" overflow="hidden">
                     <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
-                </div>
+                </DivStyled>
 
-                <div className="p-[10px]">
-                    <h5 className="truncate"> {products.name}</h5>
-                    <h5 className="text-[var(--color-price)]">
+                <DivStyled padding="10px">
+                    <TextTruncate>{products.name}</TextTruncate>
+                    <TextStyled color="var(--color-price)">
                         {handleFomatVnd(products.price)}
-                    </h5>
-                    <h5>
-                        Đã bán :{" "}
-                        <span>{products.total - products.inventory}</span>
-                    </h5>
-                    <h5>
-                        Kho còn : <span>{products.inventory}</span>
-                    </h5>
+                    </TextStyled>
+
+                    <TextStyled>
+                        Đã bán :
+                        <TextStyled as="span">
+                            {products.total - products.inventory}
+                        </TextStyled>
+                    </TextStyled>
+
+                    <TextStyled>
+                        Kho còn :
+                        <TextStyled as="span">{products.inventory}</TextStyled>
+                    </TextStyled>
 
                     {isAdmin ? (
-                        <button
-                            className="bg-[red] text-[#fff] w-[50%] p-[4px] rounded-[10px] shadow hover:opacity-[0.6] mt-[10px]"
+                        <ButtonStyled
+                            color="#fff"
+                            background="red"
+                            width="50%"
+                            padding="8px"
                             onClick={(e) => {
                                 !isLoading
                                     ? handleDeleteProduct(e, products)
@@ -92,12 +106,12 @@ const Card = ({
                             }}
                         >
                             Xóa
-                        </button>
+                        </ButtonStyled>
                     ) : (
                         <></>
                     )}
-                </div>
-            </div>
+                </DivStyled>
+            </DivStyled>
         </LinkComponent>
     );
 };

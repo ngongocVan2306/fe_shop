@@ -14,6 +14,9 @@ import { handleAddToCartService } from "@/action/cartAction";
 import { AddCart } from "@/store/feauture/cartSlice";
 import iconCart from "../../../assets/icons/iconCart.svg";
 import Quantity from "../Quantity/Quantity";
+import { DivFlex, DivStyled } from "@/styledComponent/Div";
+import { TextStyled } from "@/styledComponent/TextStyled";
+import { ButtonFlex, ButtonStyled } from "@/styledComponent/ButtonStyled";
 
 export default function DetailProduct({ product }: { product: IProduct }) {
     const [count, setCount] = useState<number>(0);
@@ -74,50 +77,65 @@ export default function DetailProduct({ product }: { product: IProduct }) {
         setIsLoading(false);
     };
     return (
-        <div className="w-full h-[100vh] bg-[#f4f4f4] flex justify-center items-center">
-            <div className="sm:w-[70%] w-full bg-[#fff] flex sm:flex-row flex-col justify-center py-[40px] sm:px-[100px] rounded-[5px] shadow">
-                <div className="sm:w-[40%] w-full h-full pt-[40px]">
+        <DivFlex background="#f4f4f4" height="100vh">
+            <DivFlex width="70%" padding="20px" rounded="5px" isShadow>
+                <DivStyled width="40%" padding="20px">
                     <PreviewImage
                         data={product?.imageData.map((item) => item.img_url)}
                         isFile={false}
                     />
-                </div>
+                </DivStyled>
 
-                <div className="sm:w-[60%] w-full sm:px-[40px] px-[10px] py-[20px] flex flex-col">
-                    <h4 className="text-[20px]">{product?.name}</h4>
+                <DivFlex width="60%" padding="20px" flexDirection="column">
+                    <TextStyled size="20px" weight={500}>
+                        {product?.name}
+                    </TextStyled>
 
-                    <div className="w-full bg-[#f4f4f4] rounded-[5px] p-[10px] mt-[20px]">
-                        <h5 className="text-[20px] text-[var(--color-price)]">
+                    <DivStyled
+                        background="#f4f4f4"
+                        rounded="10px"
+                        padding="10px"
+                        marginTop="20px"
+                    >
+                        <TextStyled size="20px" color="var(--color-price)">
                             {handleFomatVnd(product?.price)}
-                        </h5>
-                    </div>
+                        </TextStyled>
+                    </DivStyled>
 
-                    <div className="w-[100%] flex justify-between items-center mt-[20px]">
-                        <h5>
+                    <DivFlex marginTop="20px" justyfy="space-between">
+                        <TextStyled>
                             Đã Bán :{" "}
-                            <span>{product?.total - product?.inventory}</span>
-                        </h5>
+                            <TextStyled as="span">
+                                {product?.total - product?.inventory}
+                            </TextStyled>
+                        </TextStyled>
 
-                        <h5 className="text-[#ccc]">|</h5>
+                        <TextStyled color="#ccc">|</TextStyled>
 
-                        <h5>
-                            Trong kho còn : <span>{product?.inventory}</span>
-                        </h5>
-                    </div>
+                        <TextStyled>
+                            Trong kho còn :{" "}
+                            <TextStyled as="span">
+                                {product?.inventory}
+                            </TextStyled>
+                        </TextStyled>
+                    </DivFlex>
 
-                    <div className="w-full flex items-center mt-[20px]">
-                        <h5 className="mr-[20px] ">Số lượng :</h5>
-
+                    <DivFlex marginTop="20px" justyfy="start">
+                        <TextStyled>Số lượng :</TextStyled>
                         <Quantity
                             inventory={product.inventory}
                             count={count}
                             setCount={setCount}
                         />
-                    </div>
+                    </DivFlex>
 
-                    <div className="flex items-center mt-[80px] ">
-                        <button
-                            className="h-[50px] flex justify-center items-center sm:w-[45%] w-[50%] border-solid border-[1px] border-[var(--color-cart)] bg-[var(--color-button-cart)] text-[var(--color-cart)] sm:p-[10px] rounded-[5px] shadow hover:opacity-[0.6]"
+                    <DivFlex marginTop="80px" justyfy="space-between">
+                        <ButtonFlex
+                            height="50px"
+                            width="45%"
+                            colorBorder="var(--color-cart)"
+                            background="var(--color-button-cart)"
+                            color="var(--color-cart)"
                             onClick={() =>
                                 !isLoading ? handleAddToCart() : null
                             }
@@ -130,13 +148,20 @@ export default function DetailProduct({ product }: { product: IProduct }) {
                                 className="mr-[5px]"
                             />
                             <p>Thêm Vào Giỏ Hàng</p>
-                        </button>
-                        <button className="h-[50px] bg-[var(--color-cart)] sm:w-[45%] w-[50%] text-[#fff] sm:px-[50px] py-[10px] rounded-[5px] shadow hover:opacity-[0.6] ml-[50px]">
+                        </ButtonFlex>
+
+                        <ButtonStyled
+                            height="50px"
+                            width="45%"
+                            colorBorder="var(--color-cart)"
+                            background="var(--color-cart)"
+                            color="#fff"
+                        >
                             Mua Ngay
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </ButtonStyled>
+                    </DivFlex>
+                </DivFlex>
+            </DivFlex>
+        </DivFlex>
     );
 }
