@@ -1,5 +1,5 @@
 import { handleGetProductService } from "@/action/productAction";
-import ManageProduct from "@/components/Product/ManageProduct";
+import ManageProduct from "@/components/Product/ManageProduct/ManageProduct";
 
 export default async function PageHome() {
     return (

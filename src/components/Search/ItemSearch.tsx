@@ -17,10 +17,10 @@ const ItemSearch = ({
     );
     return (
         <div
-            className="flex justify-start p-[5px] hover:cursor-pointer hover:bg-[#f4f4f4]"
+            className="flex justify-start items-center p-[5px] hover:cursor-pointer hover:bg-[#f4f4f4]"
             onClick={() => handleChooseItem()}
         >
-            <div className="w-[20%]">
+            <div className="w-[20%] overflow-hidden ">
                 <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
             </div>
 

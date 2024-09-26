@@ -3,11 +3,18 @@
 import { defaultPagination } from "@/constants";
 import { IProduct } from "@/utils/interface";
 import { isEmpty } from "@/utils/isEmpty";
-import { Empty } from "antd";
 import usePagination from "@/hook/usePagination";
 import { useState } from "react";
-import PaginationCustom from "../PaginationCustom/PaginationCustom";
-import Card from "./Card";
+import PaginationCustom from "../../PaginationCustom/PaginationCustom";
+import Card from "../Card/Card";
+
+import PageError from "@/components/PageError/PageError";
+import {
+    ContentManage,
+    FormGrid,
+    FormManage,
+    FormPagination,
+} from "./ManageProduct.styled";
 
 export default function ManageProduct({
     isAdmin,
@@ -29,10 +36,10 @@ export default function ManageProduct({
     });
 
     return (
-        <div className="w-full h-full sm:p-[20px]">
-            <div className="">
+        <FormManage>
+            <ContentManage>
                 {!isEmpty(products) ? (
-                    <div className="grid sm:grid-cols-5 grid-cols-2 gap-4">
+                    <FormGrid>
                         {products.map((item: IProduct) => {
                             return (
                                 <Card
@@ -44,19 +51,17 @@ export default function ManageProduct({
                                 />
                             );
                         })}
-                    </div>
+                    </FormGrid>
                 ) : (
-                    <div className="w-full flex justify-center">
-                        <Empty />
-                    </div>
+                    <PageError />
                 )}
-            </div>
+            </ContentManage>
 
             {meta && meta.totalIteams > 0 && (
-                <div className="w-full flex justify-center my-[40px]">
+                <FormPagination>
                     <PaginationCustom total={meta?.totalIteams} />
-                </div>
+                </FormPagination>
             )}
-        </div>
+        </FormManage>
     );
 }

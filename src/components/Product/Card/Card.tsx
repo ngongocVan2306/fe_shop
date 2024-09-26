@@ -5,10 +5,11 @@ import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import Swal from "sweetalert2";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { handleDeleteProductService } from "@/action/productAction";
-import LinkComponent from "../LinkComponent/LinkComponent";
+import LinkComponent from "../../LinkComponent/LinkComponent";
 import { routes } from "@/utils/menuRouters";
 import { useState } from "react";
-import ImageCustom from "../ImageCustom/ImageCustom";
+import ImageCustom from "../../ImageCustom/ImageCustom";
+import { ButtonDelete, FormCard } from "./Card.styled";
 
 const Card = ({
     products,
@@ -61,30 +62,29 @@ const Card = ({
     };
     return (
         <LinkComponent key={products.id} href={routes.detail.url + products.id}>
-            <div
-                className="border-solid border-[1px] border-[#ccc] rounded-[10px] shadow hover:cursor-pointer hover:opacity-[0.6]"
-                key={products.id}
-            >
-                <div className="w-full h-[200px] overflow-hidden">
+            <FormCard isShadow height="auto" width="200px">
+                <div className="thumbnail">
                     <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
                 </div>
 
-                <div className="p-[10px]">
-                    <h5 className="truncate"> {products.name}</h5>
-                    <h5 className="text-[var(--color-price)]">
-                        {handleFomatVnd(products.price)}
-                    </h5>
-                    <h5>
-                        Đã bán :{" "}
+                <div className="form-content">
+                    <p className="truncate">{products.name}</p>
+
+                    <p className="price">{handleFomatVnd(products.price)}</p>
+
+                    <p>
+                        Đã bán :
                         <span>{products.total - products.inventory}</span>
-                    </h5>
-                    <h5>
-                        Kho còn : <span>{products.inventory}</span>
-                    </h5>
+                    </p>
+
+                    <p>
+                        Kho còn :<span>{products.inventory}</span>
+                    </p>
 
                     {isAdmin ? (
-                        <button
-                            className="bg-[red] text-[#fff] w-[50%] p-[4px] rounded-[10px] shadow hover:opacity-[0.6] mt-[10px]"
+                        <ButtonDelete
+                            as="button"
+                            width="50%"
                             onClick={(e) => {
                                 !isLoading
                                     ? handleDeleteProduct(e, products)
@@ -92,12 +92,12 @@ const Card = ({
                             }}
                         >
                             Xóa
-                        </button>
+                        </ButtonDelete>
                     ) : (
                         <></>
                     )}
                 </div>
-            </div>
+            </FormCard>
         </LinkComponent>
     );
 };

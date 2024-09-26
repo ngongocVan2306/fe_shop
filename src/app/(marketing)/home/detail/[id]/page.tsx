@@ -1,6 +1,6 @@
 import { handleGEtDetailProduct } from "@/action/productAction";
 import PageError from "@/components/PageError/PageError";
-import DetailProduct from "@/components/Product/DetailProduct";
+import DetailProduct from "@/components/Product/DetailProduct/DetailProduct";
 import { mesError, resStatus } from "@/constants";
 
 interface IParams {

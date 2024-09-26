@@ -9,8 +9,9 @@ import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
 import { isEmpty } from "@/utils/isEmpty";
 import Image from "next/image";
-import iconTrash from "../../../assets/icons/iconTrash.svg";
+import iconTrash from "../../../../assets/icons/iconTrash.svg";
 import useGetAllData from "@/hook/useGetAllData";
+import { FormManageCate } from "./ManageCate.styled";
 
 export default function ManageCate() {
     const { data, handleReload } = useGetAllData({ api: handleGetCateAction });
@@ -48,24 +49,16 @@ export default function ManageCate() {
         });
     };
     return (
-        <div className="w-full h-full p-[20px]">
-            <h4 className="text-[20px] font-semibold text-center mb-[20px]">
-                Quản lí danh mục
-            </h4>
-            <div className="grid sm:grid-cols-4 grid-cols-2 gap-4 w-full">
+        <FormManageCate>
+            <h2>Quản lí danh mục</h2>
+
+            <div className="list-cate">
                 {!isEmpty(data) &&
                     data.map((item: ICate) => {
                         return (
-                            <div
-                                className="border-solid border-[1px] border-[#ccc] rounded-[10px] p-[20px] shadow flex justify-between"
-                                key={item.id}
-                            >
-                                <p className="text-center">{item.name}</p>
-
-                                <button
-                                    className="bg-[red] px-[16px] py-[4px] rounded-[10px] hover:opacity-[0.6]"
-                                    onClick={() => handleDeleteCate(item)}
-                                >
+                            <div className="item-cate" key={item.id}>
+                                <p>{item.name}</p>
+                                <button onClick={() => handleDeleteCate(item)}>
                                     <Image
                                         width={20}
                                         height={20}
@@ -77,6 +70,6 @@ export default function ManageCate() {
                         );
                     })}
             </div>
-        </div>
+        </FormManageCate>
     );
 }
