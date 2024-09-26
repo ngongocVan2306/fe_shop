@@ -1,6 +1,6 @@
 "use client";
 
-import { LabelStyled } from "@/styledComponent/TextStyled";
+import { LabelStyled } from "./LabelComponent.styled";
 
 const LabelComponent = ({ value }: { value: string }) => {
     return (

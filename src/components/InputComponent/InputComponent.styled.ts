@@ -1,9 +1,5 @@
-"use client";
-
-import { TInput } from "@/utils/interface";
+import { TInput, TStyoeFlex } from "@/utils/interface";
 import styled from "styled-components";
-
-// InputStyled
 
 export const InputStyled = styled.input.attrs<{
     padding?: string;
@@ -24,23 +20,19 @@ export const InputStyled = styled.input.attrs<{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;
 
-// InputGradient
-
-export const InputGradient = styled(InputStyled).attrs<{
-    start?: string;
-    end?: string;
+export const TextStyled = styled.p.attrs<{
+    size?: string;
+    weight?: number;
     color?: string;
+    textAlign?: TStyoeFlex;
 }>((props) => ({
-    start: props.start || "#74ebd5",
-    end: props.end || "#9face6",
-    color: props.color || "#fff",
+    size: props.size || "16px",
+    weight: props.weight || 400,
+    color: props.color || "#000",
+    textAlign: props.textAlign || "start",
 }))`
-    background-image: linear-gradient(
-        to right,
-        ${(props) => props.start},
-        ${[(props) => props.end]}
-    );
+    font-size: ${(props) => props.size};
+    font-weight: ${(props) => props.weight};
     color: ${(props) => props.color};
-    margin-top: 20px;
-    cursor: pointer;
+    text-align: ${(props) => props.textAlign};
 `;

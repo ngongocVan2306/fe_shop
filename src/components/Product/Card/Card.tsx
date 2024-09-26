@@ -5,13 +5,11 @@ import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import Swal from "sweetalert2";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import { handleDeleteProductService } from "@/action/productAction";
-import LinkComponent from "../LinkComponent/LinkComponent";
+import LinkComponent from "../../LinkComponent/LinkComponent";
 import { routes } from "@/utils/menuRouters";
 import { useState } from "react";
-import ImageCustom from "../ImageCustom/ImageCustom";
-import { DivStyled } from "@/styledComponent/Div";
-import { TextStyled, TextTruncate } from "@/styledComponent/TextStyled";
-import { ButtonStyled } from "@/styledComponent/ButtonStyled";
+import ImageCustom from "../../ImageCustom/ImageCustom";
+import { ButtonDelete, FormCard } from "./Card.styled";
 
 const Card = ({
     products,
@@ -64,41 +62,29 @@ const Card = ({
     };
     return (
         <LinkComponent key={products.id} href={routes.detail.url + products.id}>
-            <DivStyled
-                width="240px"
-                colorBorder="#ddd"
-                isShadow
-                overflow="hidden"
-                rounded="10px"
-            >
-                <DivStyled height="200px" overflow="hidden">
+            <FormCard isShadow height="auto" width="200px">
+                <div className="thumbnail">
                     <ImageCustom image={imageSrc} setImageSrc={setImageSrc} />
-                </DivStyled>
+                </div>
 
-                <DivStyled padding="10px">
-                    <TextTruncate>{products.name}</TextTruncate>
-                    <TextStyled color="var(--color-price)">
-                        {handleFomatVnd(products.price)}
-                    </TextStyled>
+                <div className="form-content">
+                    <p className="truncate">{products.name}</p>
 
-                    <TextStyled>
+                    <p className="price">{handleFomatVnd(products.price)}</p>
+
+                    <p>
                         Đã bán :
-                        <TextStyled as="span">
-                            {products.total - products.inventory}
-                        </TextStyled>
-                    </TextStyled>
+                        <span>{products.total - products.inventory}</span>
+                    </p>
 
-                    <TextStyled>
-                        Kho còn :
-                        <TextStyled as="span">{products.inventory}</TextStyled>
-                    </TextStyled>
+                    <p>
+                        Kho còn :<span>{products.inventory}</span>
+                    </p>
 
                     {isAdmin ? (
-                        <ButtonStyled
-                            color="#fff"
-                            background="red"
+                        <ButtonDelete
+                            as="button"
                             width="50%"
-                            padding="8px"
                             onClick={(e) => {
                                 !isLoading
                                     ? handleDeleteProduct(e, products)
@@ -106,12 +92,12 @@ const Card = ({
                             }}
                         >
                             Xóa
-                        </ButtonStyled>
+                        </ButtonDelete>
                     ) : (
                         <></>
                     )}
-                </DivStyled>
-            </DivStyled>
+                </div>
+            </FormCard>
         </LinkComponent>
     );
 };

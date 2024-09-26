@@ -1,4 +1,4 @@
-import ManageCate from "@/components/Cate/ManageCate";
+import ManageCate from "@/components/Cate/ManageCate/ManageCate";
 import { Suspense } from "react";
 
 export default async function managecate() {

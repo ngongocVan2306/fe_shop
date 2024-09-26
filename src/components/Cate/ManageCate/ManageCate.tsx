@@ -9,11 +9,9 @@ import { ICate } from "@/utils/interface";
 import Swal from "sweetalert2";
 import { isEmpty } from "@/utils/isEmpty";
 import Image from "next/image";
-import iconTrash from "../../../assets/icons/iconTrash.svg";
+import iconTrash from "../../../../assets/icons/iconTrash.svg";
 import useGetAllData from "@/hook/useGetAllData";
-import { DivFlex, DivGrid, DivStyled } from "@/styledComponent/Div";
-import { TextStyled } from "@/styledComponent/TextStyled";
-import { ButtonStyled } from "@/styledComponent/ButtonStyled";
+import { FormManageCate } from "./ManageCate.styled";
 
 export default function ManageCate() {
     const { data, handleReload } = useGetAllData({ api: handleGetCateAction });
@@ -51,42 +49,27 @@ export default function ManageCate() {
         });
     };
     return (
-        <DivStyled padding="20px">
-            <TextStyled size="20px" weight={500}>
-                {" "}
-                Quản lí danh mục
-            </TextStyled>
+        <FormManageCate>
+            <h2>Quản lí danh mục</h2>
 
-            <DivGrid columns={4} marginTop="20px">
+            <div className="list-cate">
                 {!isEmpty(data) &&
                     data.map((item: ICate) => {
                         return (
-                            <DivFlex
-                                colorBorder="#ccc"
-                                padding="20px"
-                                justyfy="space-between"
-                                key={item.id}
-                                rounded="10px"
-                                isShadow
-                            >
-                                <TextStyled>{item.name}</TextStyled>
-                                <ButtonStyled
-                                    background="red"
-                                    padding="8px"
-                                    color="#fff"
-                                    onClick={() => handleDeleteCate(item)}
-                                >
+                            <div className="item-cate" key={item.id}>
+                                <p>{item.name}</p>
+                                <button onClick={() => handleDeleteCate(item)}>
                                     <Image
                                         width={20}
                                         height={20}
                                         src={iconTrash}
                                         alt="trash"
                                     />
-                                </ButtonStyled>
-                            </DivFlex>
+                                </button>
+                            </div>
                         );
                     })}
-            </DivGrid>
-        </DivStyled>
+            </div>
+        </FormManageCate>
     );
 }

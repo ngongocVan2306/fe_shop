@@ -1,7 +1,6 @@
-import { InputStyled } from "@/styledComponent/InputStyled";
-import { TextStyled } from "@/styledComponent/TextStyled";
 import { TInput } from "@/utils/interface";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { InputStyled, TextStyled } from "./InputComponent.styled";
 
 const InputComponent = ({
     name,

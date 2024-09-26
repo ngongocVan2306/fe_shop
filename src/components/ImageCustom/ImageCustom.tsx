@@ -17,7 +17,7 @@ const ImageCustom = ({
             height={100}
             src={image}
             alt="Image"
-            className="w-full object-cover rounded-[10px] overflow-hidden"
+            className="w-full object-cover overflow-hidden"
             onError={() => setImageSrc(imageDefault.src)}
         />
     );

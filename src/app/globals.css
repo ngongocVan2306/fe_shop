@@ -8,9 +8,11 @@
   --background: #ffffff;
   --foreground: #171717;
   --height-header : 60px;
+  --height-content: calc(100vh - 60px);
   --color-price : #EE4D2D;
   --color-cart : #d0011b;
   --color-button-cart: rgba(208, 1, 27, .08);
+  --shadow : rgba(0, 0, 0, 0.16) 0px 1px 4px
 }
 
 @media (prefers-color-scheme: dark) {
