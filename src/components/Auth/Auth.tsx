@@ -16,8 +16,11 @@ import Image from "next/image";
 import FormGroup from "../FormGroup/FormGroup";
 import { menuRegister } from "@/utils/menuRegister";
 import LinkComponent from "../LinkComponent/LinkComponent";
+import { useTranslation } from "react-i18next";
 
 const Auth = ({ slug }: { slug: string }) => {
+    const { t } = useTranslation("auth");
+
     const dispatch = useAppDispatch();
 
     const router = useRouter();
@@ -91,17 +94,17 @@ const Auth = ({ slug }: { slug: string }) => {
                     className="mr-[5px]"
                 />
 
-                <p>Home</p>
+                <p>{t("home")}</p>
             </div>
 
             <div className="form-auth">
                 <p className="heading">
-                    {slug === routes.login.label ? "Login" : "Register"}
+                    {slug === routes.login.label ? t("login") : t("register")}
                 </p>
 
                 <form onSubmit={handleSubmit(handleAuth)}>
                     <FormGroup
-                        label="Email"
+                        label={t("email")}
                         name={menuRegister.email}
                         type="email"
                         register={register}
@@ -112,7 +115,7 @@ const Auth = ({ slug }: { slug: string }) => {
                     {slug === routes.register.label && (
                         <>
                             <FormGroup
-                                label="First Name"
+                                label={t("firstName")}
                                 name={menuRegister.firstName}
                                 type="text"
                                 register={register}
@@ -120,7 +123,7 @@ const Auth = ({ slug }: { slug: string }) => {
                                 errors={errors}
                             />
                             <FormGroup
-                                label="Last Name"
+                                label={t("lastName")}
                                 name={menuRegister.lastName}
                                 type="text"
                                 register={register}
@@ -131,7 +134,7 @@ const Auth = ({ slug }: { slug: string }) => {
                     )}
 
                     <FormGroup
-                        label="Password"
+                        label={t("password")}
                         name={menuRegister.password}
                         type="password"
                         register={register}
@@ -142,7 +145,7 @@ const Auth = ({ slug }: { slug: string }) => {
 
                     {slug === routes.register.label && (
                         <FormGroup
-                            label="Re-Password"
+                            label={t("rePassword")}
                             name={menuRegister.rePassword}
                             type="password"
                             register={register}
@@ -154,7 +157,16 @@ const Auth = ({ slug }: { slug: string }) => {
                         />
                     )}
 
-                    <ButtonSubmit as="input" type="submit" width="50%" />
+                    <ButtonSubmit
+                        as="input"
+                        type="submit"
+                        width="50%"
+                        value={
+                            slug === routes.login.label
+                                ? t("login")
+                                : t("register")
+                        }
+                    />
                 </form>
 
                 <LinkComponent
@@ -166,8 +178,8 @@ const Auth = ({ slug }: { slug: string }) => {
                 >
                     <p className=" label-swap">
                         {slug === routes.login.label
-                            ? "You haven't an account ?"
-                            : "You have an account ?"}
+                            ? t("haveAccount")
+                            : t("haveNotAccount")}
                     </p>
                 </LinkComponent>
             </div>

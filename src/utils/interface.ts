@@ -136,3 +136,5 @@ export interface ISearchParams {
 }
 
 export type TStyoeFlex = "center" | "start" | "end" | "space-between";
+
+export type TLang = "en" | "vi";

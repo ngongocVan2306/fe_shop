@@ -1,0 +1,10 @@
+{
+    "errEmptyQuantity":"Please choose quantity!",
+    "sold" :"Sold :",
+    "quantity" : "Quantity :",
+    "stock" :"In stock :",
+    "addToCart" :"Add to cart",
+    "buy" : "Buy now",
+    "questionAdd" :"Are you sure you want to add this product to your cart ?"
+
+}

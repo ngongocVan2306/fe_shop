@@ -1,0 +1,9 @@
+{    
+    "errEmptyQuantity":"Bạn vui lòng chọn sô lượng!",
+    "sold" :"Đã bán :",
+    "quantity" : "Số lượng :",
+    "stock" :"trong kho còn :",
+    "addToCart" :"Thêm vào giỏ hàng",
+    "buy" : "Buy now",
+    "questionAdd" :"Bạn có chắc muốn thêm sản phẩm này vào giỏ hàng ?"
+}

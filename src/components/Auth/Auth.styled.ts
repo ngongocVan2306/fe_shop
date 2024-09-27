@@ -25,6 +25,7 @@ export const DivMain = styled(Div)`
         color: #fff;
         background-color: #fff;
         background-image: linear-gradient(to right, #74ebd5, #9face6);
+        cursor: pointer;
 
         &:hover {
             opacity: 0.6;

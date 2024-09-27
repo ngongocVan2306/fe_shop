@@ -1,0 +1,8 @@
+{
+    "labelCreate" : "Tạo danh mục",
+    "labelManage" :"Quản lí danh mục",
+    "labelInputName":"Tên danh mục",
+    "selectAll" :"Tất cả",
+    "errNameEmty" :"Bạn vui lòng nhập tên danh mục !"
+
+}

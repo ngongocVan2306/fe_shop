@@ -4,8 +4,11 @@ import Loading from "../Loading/Loading";
 import { handleCraeeteCateAction } from "@/action/cateAction";
 import Swal from "sweetalert2";
 import { mesError, resStatus, toastStatus } from "@/constants";
+import { useTranslation } from "react-i18next";
 
 export default function CreateCate() {
+    const { t } = useTranslation("cate");
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [name, setName] = useState<string>("");
 
@@ -16,7 +19,7 @@ export default function CreateCate() {
             setIsLoading(false);
             Swal.fire({
                 icon: toastStatus.INFO,
-                title: "Bạn vui lòng nhập tên danh mục !",
+                title: t("errNameEmty"),
             });
             return;
         }
@@ -47,12 +50,12 @@ export default function CreateCate() {
     return (
         <div className="w-full h-full p-[20px]">
             <h4 className="mb-[20px] text-center text-[20px] font-semibold">
-                Tạo danh mục
+                {t("labelCreate")}
             </h4>
 
             <div className="w-full my-[20px] flex justify-center items-center">
                 <label htmlFor="input-name" className="sm:mr-[20px] mr-[5px]">
-                    Tên danh mục
+                    {t("labelInputName")}
                 </label>
                 <input
                     id="input-name"
@@ -71,7 +74,7 @@ export default function CreateCate() {
                         className="w-[100%] p-[8px] bg-gradient-to-r from-[#74ebd5] to-[#9face6] rounded-[100px] mt-[20px] text-[#fff] hover:opacity-[0.6]"
                         onClick={() => handleCreateCate()}
                     >
-                        Tạo
+                        {t("labelCreate")}
                     </button>
                 )}
             </div>
