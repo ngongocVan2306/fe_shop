@@ -9,13 +9,15 @@ import { ICate } from "@/utils/interface";
 import { FieldValues, useForm } from "react-hook-form";
 import FormGroup from "../FormGroup/FormGroup";
 import Loading from "../Loading/Loading";
-import LabelComponent from "../LabelComponent/LabelComponent";
 import { mesError, resStatus, toastStatus } from "@/constants";
 import iconAdd from "../../../assets/icons/iconAdd.svg";
 import Image from "next/image";
 import { isEmpty } from "@/utils/isEmpty";
+import { useTranslation } from "react-i18next";
 
 export default function AddProduct({ cates }: { cates: ICate[] }) {
+    const { t } = useTranslation("product");
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [files, setFiles] = useState<File[]>([]);
 
@@ -106,9 +108,11 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
         formState: { errors },
     } = useForm();
 
+    console.log(t("productName"));
+
     return (
         <div className="w-[100%] h-[100%] py-[20px] font-semibold text-[25px]">
-            <h4 className="text-center">Thêm Sản Phẩm</h4>
+            <h4 className="text-center">{t("labelCreate")}</h4>
 
             <div className="flex sm:flex-row flex-col justify-center sm:px-[50px] mt-[40px]">
                 <div className="sm:w-[50%] w-full flex flex-col items-center sm:order-1 order-2">
@@ -117,7 +121,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         className="w-[80%]"
                     >
                         <FormGroup
-                            label=" Tên sản phẩm"
+                            label={t("productName")}
                             name="name"
                             type="text"
                             errors={errors}
@@ -126,7 +130,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         />
 
                         <FormGroup
-                            label=" Số lượng sản phẩm"
+                            label={t("productQuantity")}
                             name="total"
                             type="number"
                             errors={errors}
@@ -135,7 +139,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         />
 
                         <FormGroup
-                            label="Giá sản phẩm"
+                            label={t("productPrice")}
                             name="price"
                             type="number"
                             errors={errors}
@@ -144,7 +148,7 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                         />
 
                         <FormGroup
-                            label="Danh mục"
+                            label={t("productCate")}
                             name="type"
                             type=""
                             register={register}
@@ -168,13 +172,11 @@ export default function AddProduct({ cates }: { cates: ICate[] }) {
                 </div>
 
                 <div className="sm:w-[50%] w-full order-1 sm:order-2">
-                    <LabelComponent value="Chọn ảnh" />
-
                     <button
                         className="w-[150px] rounded-[10px] p-[8px] shadow text-[16px] font-normal bg-[orange] text-[#fff] hover:cursor-pointer hover:opacity-[0.6] ml-[10px] mb-[10px]"
                         onClick={() => setFiles([])}
                     >
-                        Chọn lại ảnh
+                        {t("chooseAgainImg")}
                     </button>
                     <input
                         ref={refInput}

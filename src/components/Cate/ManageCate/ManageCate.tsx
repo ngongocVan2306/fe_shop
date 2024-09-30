@@ -12,8 +12,11 @@ import Image from "next/image";
 import iconTrash from "../../../../assets/icons/iconTrash.svg";
 import useGetAllData from "@/hook/useGetAllData";
 import { FormManageCate } from "./ManageCate.styled";
+import { useTranslation } from "react-i18next";
 
 export default function ManageCate() {
+    const { t } = useTranslation("cate");
+
     const { data, handleReload } = useGetAllData({ api: handleGetCateAction });
 
     const handleDeleteCate = (data: ICate) => {
@@ -50,7 +53,7 @@ export default function ManageCate() {
     };
     return (
         <FormManageCate>
-            <h2>Quản lí danh mục</h2>
+            <h2>{t("labelManage")}</h2>
 
             <div className="list-cate">
                 {!isEmpty(data) &&

@@ -1,0 +1,7 @@
+{
+    "labelCreate" : "Create categories",
+    "labelManage" :"Manage categories",
+    "labelInputName":"Name categories",
+    "selectAll" :"All",
+    "errNameEmty" :"Please enter a category name!"
+}

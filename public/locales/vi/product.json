@@ -1,0 +1,15 @@
+{
+    "labelCreate":"Thêm sản phẩm",
+    "manageProduct" :"Quản lí sản phẩm",
+    "chooseImg":"Chọn ảnh",
+    "chooseAgainImg":"Chọn lại ảnh",
+    "productName":"Tên sản phẩm",
+    "productQuantity":"Số lượng sản phẩm",
+    "productPrice":"Giá sản phẩm",
+    "productCate":"Danh mục sản phẩm",
+    "price" :"Gía tiền",
+    "delete":"Xóa",
+    "buy":"Mua ngay",
+    "sold" :"Đã bán",
+    "inventory" :"Kho còn"
+}

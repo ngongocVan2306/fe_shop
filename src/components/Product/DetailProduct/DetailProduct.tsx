@@ -16,10 +16,13 @@ import { handleFomatVnd } from "@/helpers/handleFormatVnd";
 import iconCart from "../../../../assets/icons/iconCart.svg";
 import Image from "next/image";
 import Quantity from "@/components/Quantity/Quantity";
+import { useTranslation } from "react-i18next";
 
 export default function DetailProduct({ product }: { product: IProduct }) {
     const [count, setCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { t } = useTranslation("detail");
 
     const isLogin = useAppSelector((state: RootState) => state.auth.isLogin);
     const dispatch = useAppDispatch();
@@ -33,7 +36,7 @@ export default function DetailProduct({ product }: { product: IProduct }) {
         if (!count) {
             Swal.fire({
                 icon: toastStatus.INFO,
-                title: "Bạn vui lòng chọn sô lượng!",
+                title: t("errEmptyQuantity"),
             });
             return false;
         }
@@ -50,7 +53,7 @@ export default function DetailProduct({ product }: { product: IProduct }) {
 
         Swal.fire({
             icon: toastStatus.QUESTION,
-            title: "Bạn có chắc muốn thêm sản phẩm này vào giỏ hàng?",
+            title: t("questionAdd"),
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await handleAddToCartService({
@@ -100,19 +103,19 @@ export default function DetailProduct({ product }: { product: IProduct }) {
 
                     <FormFlex className="inventory">
                         <p>
-                            Đã Bán:{" "}
+                            {t("sold")}
                             <span> {product?.total - product?.inventory}</span>
                         </p>
 
                         <p style={{ color: "#ccc" }}>|</p>
 
                         <p>
-                            Trong kho còn: <span> {product?.inventory}</span>
+                            {t("stock")} <span> {product?.inventory}</span>
                         </p>
                     </FormFlex>
 
                     <FormFlex className="quantity">
-                        <p className="label-quantity">Số lượng:</p>
+                        <p className="label-quantity">{t("quantity")}</p>
                         <Quantity
                             inventory={product.inventory}
                             count={count}
@@ -135,11 +138,11 @@ export default function DetailProduct({ product }: { product: IProduct }) {
                                 alt="cart"
                                 className="mr-[5px]"
                             />
-                            Thêm vào giỏ hàng
+                            {t("addToCart")}
                         </Button>
 
                         <Button className="button-buy" as="button">
-                            Mua ngay
+                            {t("buy")}
                         </Button>
                     </FormFlex>
                 </div>

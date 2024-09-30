@@ -15,7 +15,7 @@ export default function TabsComponenet({ data }: { data: any }) {
         <div className="w-[100%] h-[100%]">
             <Tabs
                 defaultActiveKey={routes.manageCate?.url}
-                items={data}
+                items={data()}
                 onChange={onChange}
             />
         </div>

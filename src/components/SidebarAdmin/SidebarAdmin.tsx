@@ -31,8 +31,8 @@ export default function SidebarAdmin({
             </div>
 
             <ul className=" w-[100%]">
-                {!isEmpty(menuSidebarAdmin) &&
-                    menuSidebarAdmin.map((item, index) => {
+                {!isEmpty(menuSidebarAdmin()) &&
+                    menuSidebarAdmin().map((item, index) => {
                         return (
                             <Link href={item.url} key={index}>
                                 <li

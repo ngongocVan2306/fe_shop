@@ -8,6 +8,7 @@ import {
     UseFormRegister,
 } from "react-hook-form";
 import SelectComponent from "../SelectComponent/SelectComponent";
+import { useTranslation } from "react-i18next";
 
 const FormGroup = ({
     label,
@@ -37,17 +38,19 @@ const FormGroup = ({
     errors?: FieldErrors<FieldValues>;
     dataSelect?: ICate[];
 }) => {
+    const { t } = useTranslation("auth");
+
     if (isRequired) {
         rules.required = {
             value: true,
-            message: label + " Không được để trống !",
+            message: label + " " + t("notEmpty"),
         };
     }
 
     if (min) {
         rules.minLength = {
             value: min,
-            message: "Trường này không được ít hơn " + min + " kí tự !",
+            message: t("minLength"),
         };
     }
 
@@ -55,7 +58,7 @@ const FormGroup = ({
         rules.validate = (value: string) => {
             return value === getValues("password")
                 ? true
-                : "re-password phải giống password!";
+                : t("errSamePassword");
         };
     }
 

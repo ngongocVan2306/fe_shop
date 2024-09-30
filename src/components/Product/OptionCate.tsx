@@ -5,9 +5,12 @@ import { isEmpty } from "@/utils/isEmpty";
 import { routes } from "@/utils/menuRouters";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function OptionCate({ cates }: { cates: ICate[] }) {
     const [type, setType] = useState<number>(0);
+
+    const { t } = useTranslation("cate");
 
     const router = useRouter();
 
@@ -24,7 +27,7 @@ export default function OptionCate({ cates }: { cates: ICate[] }) {
                         );
                     }}
                 >
-                    <option value="0">Tất cả</option>
+                    <option value="0">{t("selectAll")}</option>
                     {!isEmpty(cates) &&
                         cates.map((item: ICate) => {
                             return (

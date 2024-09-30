@@ -1,0 +1,6 @@
+{
+    "price" :"Price :",
+    "delete": "Delete",
+    "buy":"Buy now",
+    "questiondelete":"Are you sure you want to delete the order : "
+}

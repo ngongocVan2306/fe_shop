@@ -1,0 +1,15 @@
+{
+    "labelCreate":"Add product",
+    "manageProduct" :"Manage product",
+    "chooseImg":"Choose image",
+    "chooseAgainImg":"Choose again image",
+    "productName":"Product name",
+    "productQuantity":"Product quantity",
+    "productPrice":"Product price",
+    "productCate":"Product categories",
+    "price" :"Price",
+    "delete":"Delete",
+    "buy":"Buy now",
+    "sold" :"Sold",
+    "inventory" :"Inventory"
+}

@@ -10,6 +10,7 @@ import { DeleteCart } from "@/store/feauture/cartSlice";
 import { useAppDispatch } from "@/store/store";
 import { useState } from "react";
 import ImageCustom from "../ImageCustom/ImageCustom";
+import { useTranslation } from "react-i18next";
 
 const CartItem = ({
     cart,
@@ -20,6 +21,8 @@ const CartItem = ({
     isLoading: boolean;
     handleReload: () => void;
 }) => {
+    const { t } = useTranslation("cart");
+
     const [imageSrc, setImageSrc] = useState(
         process.env.NEXT_PUBLIC_BASE_IMAGE +
             cart?.productData.imageData[0]?.img_url
@@ -29,7 +32,7 @@ const CartItem = ({
     const handleDeleteCart = async (cart: ICart) => {
         Swal.fire({
             icon: toastStatus.QUESTION,
-            title: `Bạn có chắc muốn xóa đơn hàng ${cart.productData.name} ?`,
+            title: `${t("questiondelete")} ${cart.productData.name} ?`,
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await handleDeleteCartService(cart.id);
@@ -72,7 +75,7 @@ const CartItem = ({
                 </div>
 
                 <h5>
-                    Giá tiền:{" "}
+                    {t("price")}
                     <span className="text-[var(--color-price)]">
                         {handleFomatVnd(cart.count * cart.productData.price)}
                     </span>
@@ -84,10 +87,10 @@ const CartItem = ({
                     className="sm:w-[100%] w-[45%] bg-[red] p-[4px] rounded-[10px] shadow text-[#fff] hover:opacity-[0.6]"
                     onClick={() => (!isLoading ? handleDeleteCart(cart) : null)}
                 >
-                    Xóa
+                    {t("delete")}
                 </button>
                 <button className="sm:w-[100%] w-[45%] bg-[blue] p-[4px] rounded-[10px] shadow text-[#fff] hover:opacity-[0.6]">
-                    Mua ngay
+                    {t("buy")}{" "}
                 </button>
             </div>
         </div>

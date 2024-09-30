@@ -10,6 +10,7 @@ import { routes } from "@/utils/menuRouters";
 import { useState } from "react";
 import ImageCustom from "../../ImageCustom/ImageCustom";
 import { ButtonDelete, FormCard } from "./Card.styled";
+import { useTranslation } from "react-i18next";
 
 const Card = ({
     products,
@@ -22,6 +23,8 @@ const Card = ({
     handleReload: () => void;
     isLoading: boolean;
 }) => {
+    const { t } = useTranslation("PRODUCT");
+
     const [imageSrc, setImageSrc] = useState(
         process.env.NEXT_PUBLIC_BASE_IMAGE + products?.imageData[0]?.img_url
     );
@@ -73,12 +76,12 @@ const Card = ({
                     <p className="price">{handleFomatVnd(products.price)}</p>
 
                     <p>
-                        Đã bán :
+                        {t("sold")} :
                         <span>{products.total - products.inventory}</span>
                     </p>
 
                     <p>
-                        Kho còn :<span>{products.inventory}</span>
+                        {t("inventory")} :<span>{products.inventory}</span>
                     </p>
 
                     {isAdmin ? (
@@ -91,7 +94,7 @@ const Card = ({
                                     : null;
                             }}
                         >
-                            Xóa
+                            {t("delete")}
                         </ButtonDelete>
                     ) : (
                         <></>
