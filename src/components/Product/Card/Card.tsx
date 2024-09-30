@@ -23,7 +23,7 @@ const Card = ({
     handleReload: () => void;
     isLoading: boolean;
 }) => {
-    const { t } = useTranslation("PRODUCT");
+    const { t } = useTranslation("product");
 
     const [imageSrc, setImageSrc] = useState(
         process.env.NEXT_PUBLIC_BASE_IMAGE + products?.imageData[0]?.img_url
